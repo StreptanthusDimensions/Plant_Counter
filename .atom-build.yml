@@ -1,0 +1,9 @@
+cmd: javac
+
+name: Plant_Counter
+
+args:
+#    - --release 8
+    - -classpath '/Applications/Fiji.app/jars/*'
+    - -d bin
+    - 'src/main/java/*.java'

@@ -1,4 +1,4 @@
-Plant/*
+/*
  * #%L
  * Plant Counter plugin for ImageJ.
  * %%
