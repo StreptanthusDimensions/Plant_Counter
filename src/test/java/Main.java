@@ -1,9 +1,10 @@
 /*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant_Counter Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
- * University of Wisconsin-Madison.
+ * University of Wisconsin-Madison.  
+ * Modified by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -24,14 +25,14 @@
 import fiji.Debug;
 
 /**
- * Tests the {@link Cell_Counter} plugin.
+ * Tests the {@link Plant_Counter} plugin.
  * 
  * @author Curtis Rueden
  */
 public class Main {
 
 	public static void main(final String... args) {
-		Debug.run("Cell Counter", "");
+		Debug.run("Plant Counter", "");
 	}
 
 }

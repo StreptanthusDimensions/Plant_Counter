@@ -1,9 +1,10 @@
 /*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
  * University of Wisconsin-Madison.
+ * Modified from Cell Counter by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -32,13 +33,13 @@ import org.scijava.util.ColorRGB;
 import org.scijava.util.Colors;
 
 /**
- * Options for the Cell Counter plugin.
+ * Options for the Plant Counter plugin.
  *
  * @author Curtis Rueden
  */
-@Plugin(type = OptionsPlugin.class, label = "Cell Counter Options",
+@Plugin(type = OptionsPlugin.class, label = "Plant Counter Options",
 	attrs = { @Attr(name = "legacy-only") })
-public class CellCounterOptions extends OptionsPlugin {
+public class PlantCounterOptions extends OptionsPlugin {
 
 	// -- Fields --
 

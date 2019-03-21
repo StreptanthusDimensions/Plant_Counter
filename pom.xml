@@ -10,12 +10,12 @@
 	</parent>
 
 	<groupId>sc.fiji</groupId>
-	<artifactId>Cell_Counter</artifactId>
+	<artifactId>Plant_Counter</artifactId>
 	<version>2.2.3-SNAPSHOT</version>
 
-	<name>Cell Counter</name>
-	<description>Cell Counter plugin for ImageJ.</description>
-	<url>https://imagej.net/Cell_Counter</url>
+	<name>Plant Counter</name>
+	<description>Plant Counter plugin for ImageJ.</description>
+	<url>https://imagej.net/Plant_Counter</url>
 	<inceptionYear>2001</inceptionYear>
 	<organization>
 		<name>Fiji</name>

@@ -1,9 +1,10 @@
 /*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
  * University of Wisconsin-Madison.
+ * Modified from Cell Counter by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -38,25 +39,25 @@ import org.scijava.options.OptionsService;
  *
  * @author Kurt De Vos
  */
-public class CellCntrMarkerVector extends Vector<CellCntrMarker> {
+public class PlantCntrMarkerVector extends Vector<PlantCntrMarker> {
 
 	private int type;
 
 	/** Creates a new instance of MarkerVector */
-	public CellCntrMarkerVector(final int type) {
+	public PlantCntrMarkerVector(final int type) {
 		super();
 		this.type = type;
 	}
 
-	public void addMarker(final CellCntrMarker marker) {
+	public void addMarker(final PlantCntrMarker marker) {
 		add(marker);
 	}
 
-	public CellCntrMarker getMarker(final int n) {
+	public PlantCntrMarker getMarker(final int n) {
 		return get(n);
 	}
 
-	public int getVectorIndex(final CellCntrMarker marker) {
+	public int getVectorIndex(final PlantCntrMarker marker) {
 		return indexOf(marker);
 	}
 
@@ -68,20 +69,20 @@ public class CellCntrMarkerVector extends Vector<CellCntrMarker> {
 		super.removeElementAt(size() - 1);
 	}
 
-	public CellCntrMarker getMarkerFromPosition(final Point p,
+	public PlantCntrMarker getMarkerFromPosition(final Point p,
 		final int sliceIndex)
 	{
-		final Vector<CellCntrMarker> v = new Vector<CellCntrMarker>();
-		final ListIterator<CellCntrMarker> it = this.listIterator();
+		final Vector<PlantCntrMarker> v = new Vector<PlantCntrMarker>();
+		final ListIterator<PlantCntrMarker> it = this.listIterator();
 		while (it.hasNext()) {
-			final CellCntrMarker m = it.next();
+			final PlantCntrMarker m = it.next();
 			if (m.getZ() == sliceIndex) {
 				v.add(m);
 			}
 		}
-		CellCntrMarker currentsmallest = v.get(0);
+		PlantCntrMarker currentsmallest = v.get(0);
 		for (int i = 1; i < v.size(); i++) {
-			final CellCntrMarker m2 = v.get(i);
+			final PlantCntrMarker m2 = v.get(i);
 			final Point p1 =
 				new Point(currentsmallest.getX(), currentsmallest.getY());
 			final Point p2 = new Point(m2.getX(), m2.getY());
@@ -106,8 +107,8 @@ public class CellCntrMarkerVector extends Vector<CellCntrMarker> {
 	public Color getColor() {
 		final Context c = (Context) IJ.runPlugIn("org.scijava.Context", "");
 		final OptionsService optionsService = c.service(OptionsService.class);
-		final CellCounterOptions options =
-			optionsService.getOptions(CellCounterOptions.class);
+		final PlantCounterOptions options =
+			optionsService.getOptions(PlantCounterOptions.class);
 		return options.getColor(type);
 	}
 

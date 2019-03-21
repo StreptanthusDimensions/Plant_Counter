@@ -1,9 +1,10 @@
 /*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
  * University of Wisconsin-Madison.
+ * Modified from Cell Counter by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -67,7 +68,7 @@ import org.scijava.command.CommandService;
  *
  * @author Kurt De Vos
  */
-public class CellCounter extends JFrame implements ActionListener, ItemListener
+public class PlantCounter extends JFrame implements ActionListener, ItemListener
 {
 
 	private static final String ADD = "Add";
@@ -89,11 +90,11 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 
 	private static final String TYPE_COMMAND_PREFIX = "type";
 
-	private Vector<CellCntrMarkerVector> typeVector;
+	private Vector<PlantCntrMarkerVector> typeVector;
 	private Vector<JRadioButton> dynRadioVector;
 	private final Vector<JTextField> txtFieldVector;
-	private CellCntrMarkerVector markerVector;
-	private CellCntrMarkerVector currentMarkerVector;
+	private PlantCntrMarkerVector markerVector;
+	private PlantCntrMarkerVector currentMarkerVector;
 	private int currentMarkerIndex;
 
 	private JPanel dynPanel;
@@ -121,19 +122,19 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 
 	private boolean keepOriginal = false;
 
-	private CellCntrImageCanvas ic;
+	private PlantCntrImageCanvas ic;
 
 	private ImagePlus img;
 	private ImagePlus counterImg;
 
 	private GridLayout dynGrid;
 
-	static CellCounter instance;
+	static PlantCounter instance;
 
-	public CellCounter() {
-		super("Cell Counter");
+	public PlantCounter() {
+		super("Plant Counter");
 		setResizable(false);
-		typeVector = new Vector<CellCntrMarkerVector>();
+		typeVector = new Vector<PlantCntrMarkerVector>();
 		txtFieldVector = new Vector<JTextField>();
 		dynRadioVector = new Vector<JRadioButton>();
 		initGUI();
@@ -457,11 +458,11 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	void populateTxtFields() {
-		final ListIterator<CellCntrMarkerVector> it = typeVector.listIterator();
+		final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 		while (it.hasNext()) {
 			final int index = it.nextIndex();
 			if (txtFieldVector.size() > index) {
-				final CellCntrMarkerVector markerVector = it.next();
+				final PlantCntrMarkerVector markerVector = it.next();
 				final int count = markerVector.size();
 				final JTextField tArea = txtFieldVector.get(index);
 				tArea.setText("" + count);
@@ -476,7 +477,7 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 		jrButton.addActionListener(this);
 		dynRadioVector.add(jrButton);
 		radioGrp.add(jrButton);
-		markerVector = new CellCntrMarkerVector(id);
+		markerVector = new PlantCntrMarkerVector(id);
 		typeVector.add(markerVector);
 		dynTxtPanel.add(makeDynamicTextArea());
 		return jrButton;
@@ -508,7 +509,7 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 			@SuppressWarnings("unchecked")
 			final Vector<Roi> displayList =
 				v139t ? img.getCanvas().getDisplayList() : null;
-			ic = new CellCntrImageCanvas(counterImg, typeVector, this, displayList);
+			ic = new PlantCntrImageCanvas(counterImg, typeVector, this, displayList);
 			new ImageWindow(counterImg, ic);
 		}
 		else if (img.getStackSize() > 1) {
@@ -534,7 +535,7 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 			@SuppressWarnings("unchecked")
 			final Vector<Roi> displayList =
 				v139t ? img.getCanvas().getDisplayList() : null;
-			ic = new CellCntrImageCanvas(counterImg, typeVector, this, displayList);
+			ic = new PlantCntrImageCanvas(counterImg, typeVector, this, displayList);
 			new StackWindow(counterImg, ic);
 		}
 		
@@ -701,9 +702,9 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 		if (typeVector.size() < 1) {
 			return;
 		}
-		final ListIterator<CellCntrMarkerVector> mit = typeVector.listIterator();
+		final ListIterator<PlantCntrMarkerVector> mit = typeVector.listIterator();
 		while (mit.hasNext()) {
-			final CellCntrMarkerVector mv = mit.next();
+			final PlantCntrMarkerVector mv = mit.next();
 			mv.clear();
 		}
 		if (ic != null) ic.repaint();
@@ -712,7 +713,7 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 	public void options() {
 		final Context c = (Context) IJ.runPlugIn("org.scijava.Context", "");
 		final CommandService commandService = c.service(CommandService.class);
-		commandService.run(CellCounterOptions.class, true);
+		commandService.run(PlantCounterOptions.class, true);
 	}
 
 	public void report() {
@@ -738,16 +739,16 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 				final int frame 	= realPosArray[2];
 				
 				results = "";
-				final ListIterator<CellCntrMarkerVector> mit =
+				final ListIterator<PlantCntrMarkerVector> mit =
 					typeVector.listIterator();
 				final int types = typeVector.size();
 				final int[] typeTotals = new int[types];
 				while (mit.hasNext()) {
 					final int type = mit.nextIndex();
-					final CellCntrMarkerVector mv = mit.next();
-					final ListIterator<CellCntrMarker> tit = mv.listIterator();
+					final PlantCntrMarkerVector mv = mit.next();
+					final ListIterator<PlantCntrMarker> tit = mv.listIterator();
 					while (tit.hasNext()) {
-						final CellCntrMarker m = tit.next();
+						final PlantCntrMarker m = tit.next();
 						if (m.getZ() == slice) {
 							typeTotals[type]++;
 						}
@@ -764,9 +765,9 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 			IJ.write("");
 		}
 		results = "Total\t";
-		final ListIterator<CellCntrMarkerVector> mit = typeVector.listIterator();
+		final ListIterator<PlantCntrMarkerVector> mit = typeVector.listIterator();
 		while (mit.hasNext()) {
-			final CellCntrMarkerVector mv = mit.next();
+			final PlantCntrMarkerVector mv = mit.next();
 			final int count = mv.size();
 			results = results.concat(count + "\t");
 		}
@@ -780,7 +781,7 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 		final String storedfilename =
 			rxml.readImgProperties(ReadXML.IMAGE_FILE_PATH);
 		if (storedfilename.equals(img.getTitle())) {
-			final Vector<CellCntrMarkerVector> loadedvector = rxml.readMarkerData();
+			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData();
 			typeVector = loadedvector;
 			ic.setTypeVector(typeVector);
 			final int index =
@@ -840,7 +841,7 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 		switch (dialogType) {
 			case (SAVE):
 				final String filename = img.getTitle();
-				fd.setFile("CellCounter_" +
+				fd.setFile("PlantCounter_" +
 					filename.substring(0, filename.lastIndexOf(".") + 1) + "xml");
 				break;
 		}
@@ -858,12 +859,12 @@ public class CellCounter extends JFrame implements ActionListener, ItemListener
 		this.dynRadioVector = buttonVector;
 	}
 
-	public CellCntrMarkerVector getCurrentMarkerVector() {
+	public PlantCntrMarkerVector getCurrentMarkerVector() {
 		return currentMarkerVector;
 	}
 
 	public void setCurrentMarkerVector(
-		final CellCntrMarkerVector currentMarkerVector)
+		final PlantCntrMarkerVector currentMarkerVector)
 	{
 		this.currentMarkerVector = currentMarkerVector;
 	}

@@ -1,9 +1,10 @@
-/*
+Plant/*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
  * University of Wisconsin-Madison.
+ * Modified from Cell Counter by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -48,20 +49,20 @@ import java.util.Vector;
  *
  * @author Kurt De Vos
  */
-public class CellCntrImageCanvas extends ImageCanvas {
+public class PlantCntrImageCanvas extends ImageCanvas {
 
-	private Vector<CellCntrMarkerVector> typeVector;
-	private CellCntrMarkerVector currentMarkerVector;
-	private final CellCounter cc;
+	private Vector<PlantCntrMarkerVector> typeVector;
+	private PlantCntrMarkerVector currentMarkerVector;
+	private final PlantCounter cc;
 	private final ImagePlus img;
 	private boolean delmode = false;
 	private boolean showNumbers = true;
 	private boolean showAll = false;
 	private final Font font = new Font("SansSerif", Font.PLAIN, 10);
 
-	/** Creates a new instance of CellCntrImageCanvas */
-	public CellCntrImageCanvas(final ImagePlus img,
-		final Vector<CellCntrMarkerVector> typeVector, final CellCounter cc,
+	/** Creates a new instance of PlantCntrImageCanvas */
+	public PlantCntrImageCanvas(final ImagePlus img,
+		final Vector<PlantCntrMarkerVector> typeVector, final PlantCounter cc,
 		final Vector<Roi> displayList)
 	{
 		super(img);
@@ -88,11 +89,11 @@ public class CellCntrImageCanvas extends ImageCanvas {
 		final int x = super.offScreenX(e.getX());
 		final int y = super.offScreenY(e.getY());
 		if (!delmode) {
-			final CellCntrMarker m = new CellCntrMarker(x, y, img.getCurrentSlice());
+			final PlantCntrMarker m = new PlantCntrMarker(x, y, img.getCurrentSlice());
 			currentMarkerVector.addMarker(m);
 		}
 		else {
-			final CellCntrMarker m =
+			final PlantCntrMarker m =
 				currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
 					.getCurrentSlice());
 			currentMarkerVector.remove(m);
@@ -147,14 +148,14 @@ public class CellCntrImageCanvas extends ImageCanvas {
 		g2.setStroke(new BasicStroke(1f));
 		g2.setFont(font);
 
-		final ListIterator<CellCntrMarkerVector> it = typeVector.listIterator();
+		final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 		while (it.hasNext()) {
-			final CellCntrMarkerVector mv = it.next();
+			final PlantCntrMarkerVector mv = it.next();
 			final int typeID = mv.getType();
 			g2.setColor(mv.getColor());
-			final ListIterator<CellCntrMarker> mit = mv.listIterator();
+			final ListIterator<PlantCntrMarker> mit = mv.listIterator();
 			while (mit.hasNext()) {
-				final CellCntrMarker m = mit.next();
+				final PlantCntrMarker m = mit.next();
 				final boolean sameSlice = m.getZ() == img.getCurrentSlice();
 				if (sameSlice || showAll) {
 					xM = ((m.getX() - srcRect.x) * magnification);
@@ -196,14 +197,14 @@ public class CellCntrImageCanvas extends ImageCanvas {
 		final Graphics2D g2r = (Graphics2D) gr;
 		g2r.setStroke(new BasicStroke(1f));
 
-		final ListIterator<CellCntrMarkerVector> it = typeVector.listIterator();
+		final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 		while (it.hasNext()) {
-			final CellCntrMarkerVector mv = it.next();
+			final PlantCntrMarkerVector mv = it.next();
 			final int typeID = mv.getType();
 			g2r.setColor(mv.getColor());
-			final ListIterator<CellCntrMarker> mit = mv.listIterator();
+			final ListIterator<PlantCntrMarker> mit = mv.listIterator();
 			while (mit.hasNext()) {
-				final CellCntrMarker m = mit.next();
+				final PlantCntrMarker m = mit.next();
 				if (m.getZ() == img.getCurrentSlice()) {
 					xM = m.getX();
 					yM = m.getY();
@@ -235,13 +236,13 @@ public class CellCntrImageCanvas extends ImageCanvas {
 			img.setSlice(i);
 			final ImageProcessor ip = img.getProcessor();
 			
-			final ListIterator<CellCntrMarkerVector> it = typeVector.listIterator();
+			final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 			while (it.hasNext()) {
-				final CellCntrMarkerVector mv = it.next();
+				final PlantCntrMarkerVector mv = it.next();
 				final int typeID = mv.getType();
-				final ListIterator<CellCntrMarker> mit = mv.listIterator();
+				final ListIterator<PlantCntrMarker> mit = mv.listIterator();
 				while (mit.hasNext()) {
-					final CellCntrMarker m = mit.next();
+					final PlantCntrMarker m = mit.next();
 					if (m.getZ() == i) {
 						final int xM = m.getX();
 						final int yM = m.getY();
@@ -266,20 +267,20 @@ public class CellCntrImageCanvas extends ImageCanvas {
 		}
 	}
 
-	public Vector<CellCntrMarkerVector> getTypeVector() {
+	public Vector<PlantCntrMarkerVector> getTypeVector() {
 		return typeVector;
 	}
 
-	public void setTypeVector(final Vector<CellCntrMarkerVector> typeVector) {
+	public void setTypeVector(final Vector<PlantCntrMarkerVector> typeVector) {
 		this.typeVector = typeVector;
 	}
 
-	public CellCntrMarkerVector getCurrentMarkerVector() {
+	public PlantCntrMarkerVector getCurrentMarkerVector() {
 		return currentMarkerVector;
 	}
 
 	public void setCurrentMarkerVector(
-		final CellCntrMarkerVector currentMarkerVector)
+		final PlantCntrMarkerVector currentMarkerVector)
 	{
 		this.currentMarkerVector = currentMarkerVector;
 	}

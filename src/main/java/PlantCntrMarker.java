@@ -1,9 +1,10 @@
 /*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
  * University of Wisconsin-Madison.
+ * Modified from Cell Counter by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -21,22 +22,50 @@
  * #L%
  */
 
-// Created on December 27, 2005, 4:56 PM
-
-import ij.plugin.frame.PlugInFrame;
+// Created on December 13, 2005, 8:41 AM
 
 /**
+ * TODO
+ *
  * @author Kurt De Vos
  */
-public class Cell_Counter extends PlugInFrame {
+public class PlantCntrMarker {
 
-	/** Creates a new instance of Cell_Counter */
-	public Cell_Counter() {
-		super("Cell Counter");
-		new CellCounter();
+	private int x;
+	private int y;
+	private int z;
+
+	/** Creates a new instance of Marker */
+	public PlantCntrMarker() {}
+
+	public PlantCntrMarker(final int x, final int y, final int z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 
-	@Override
-	public void run(final String arg) {}
+	public int getX() {
+		return x;
+	}
+
+	public void setX(final int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(final int y) {
+		this.y = y;
+	}
+
+	public int getZ() {
+		return z;
+	}
+
+	public void setZ(final int z) {
+		this.z = z;
+	}
 
 }

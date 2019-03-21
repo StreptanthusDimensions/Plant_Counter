@@ -1,9 +1,10 @@
 /*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
  * University of Wisconsin-Madison.
+ * Modified from Cell Counter by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -89,17 +90,17 @@ public class ReadXML {
 		return null;
 	}
 
-	public Vector<CellCntrMarkerVector> readMarkerData() {
-		final Vector<CellCntrMarkerVector> typeVector =
-			new Vector<CellCntrMarkerVector>();
+	public Vector<PlantCntrMarkerVector> readMarkerData() {
+		final Vector<PlantCntrMarkerVector> typeVector =
+			new Vector<PlantCntrMarkerVector>();
 
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
 			final Element markerTypeElement = getElement(markerTypeNodeList, i);
 			final NodeList typeNodeList =
 				markerTypeElement.getElementsByTagName("Type");
-			final CellCntrMarkerVector markerVector =
-				new CellCntrMarkerVector(Integer.parseInt(readValue(typeNodeList, 0)));
+			final PlantCntrMarkerVector markerVector =
+				new PlantCntrMarkerVector(Integer.parseInt(readValue(typeNodeList, 0)));
 
 			final NodeList markerNodeList =
 				markerTypeElement.getElementsByTagName("Marker");
@@ -111,7 +112,7 @@ public class ReadXML {
 					markerElement.getElementsByTagName("MarkerY");
 				final NodeList markerZNodeList =
 					markerElement.getElementsByTagName("MarkerZ");
-				final CellCntrMarker marker = new CellCntrMarker();
+				final PlantCntrMarker marker = new PlantCntrMarker();
 				marker.setX(Integer.parseInt(readValue(markerXNodeList, 0)));
 				marker.setY(Integer.parseInt(readValue(markerYNodeList, 0)));
 				marker.setZ(Integer.parseInt(readValue(markerZNodeList, 0)));

@@ -1,9 +1,10 @@
 /*
  * #%L
- * Cell Counter plugin for ImageJ.
+ * Plant Counter plugin for ImageJ.
  * %%
  * Copyright (C) 2007 - 2015 Kurt De Vos and Board of Regents of the
  * University of Wisconsin-Madison.
+ * Modified from Cell Counter by Julin Maloof
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -63,12 +64,12 @@ public class WriteXML {
 	}
 
 	public boolean writeXML(final String imgFilename,
-		final Vector<CellCntrMarkerVector> typeVector, final int currentType)
+		final Vector<PlantCntrMarkerVector> typeVector, final int currentType)
 	{
 		try {
 			out.write("<?xml version=\"1.0\" ");
 			out.write("encoding=\"UTF-8\"?>\r\n");
-			out.write("<CellCounter_Marker_File>\r\n");
+			out.write("<PlantCounter_Marker_File>\r\n");
 
 			// write the image properties
 			out.write(" <Image_Properties>\r\n");
@@ -79,15 +80,15 @@ public class WriteXML {
 			// write the marker data
 			out.write(" <Marker_Data>\r\n");
 			out.write("     <Current_Type>" + currentType + "</Current_Type>\r\n");
-			final ListIterator<CellCntrMarkerVector> it = typeVector.listIterator();
+			final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 			while (it.hasNext()) {
-				final CellCntrMarkerVector markerVector = it.next();
+				final PlantCntrMarkerVector markerVector = it.next();
 				final int type = markerVector.getType();
 				out.write("     <Marker_Type>\r\n");
 				out.write("         <Type>" + type + "</Type>\r\n");
-				final ListIterator<CellCntrMarker> lit = markerVector.listIterator();
+				final ListIterator<PlantCntrMarker> lit = markerVector.listIterator();
 				while (lit.hasNext()) {
-					final CellCntrMarker marker = lit.next();
+					final PlantCntrMarker marker = lit.next();
 					final int x = marker.getX();
 					final int y = marker.getY();
 					final int z = marker.getZ();
@@ -101,7 +102,7 @@ public class WriteXML {
 			}
 
 			out.write(" </Marker_Data>\r\n");
-			out.write("</CellCounter_Marker_File>\r\n");
+			out.write("</PlantCounter_Marker_File>\r\n");
 
 			out.flush(); // Don't forget to flush!
 			out.close();
