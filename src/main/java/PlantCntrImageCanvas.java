@@ -74,13 +74,11 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 
 	@Override
 	public void mousePressed(final MouseEvent e) {
-		if (IJ.spaceBarDown() || Toolbar.getToolId() == Toolbar.MAGNIFIER ||
-			Toolbar.getToolId() == Toolbar.HAND)
-		{
-			super.mousePressed(e);
-			return;
-		}
+		super.mousePressed(e);
+	}
 
+	@Override
+	public void mouseReleased(final MouseEvent e) {
 		if (currentMarkerVector == null) {
 			IJ.error("Select a counter type first!");
 			return;
@@ -103,11 +101,6 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	}
 
 	@Override
-	public void mouseReleased(final MouseEvent e) {
-		super.mouseReleased(e);
-	}
-
-	@Override
 	public void mouseMoved(final MouseEvent e) {
 		super.mouseMoved(e);
 	}
@@ -120,15 +113,12 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	@Override
 	public void mouseEntered(final MouseEvent e) {
 		super.mouseEntered(e);
-		if (!IJ.spaceBarDown() | Toolbar.getToolId() != Toolbar.MAGNIFIER |
-			Toolbar.getToolId() != Toolbar.HAND) setCursor(Cursor
-			.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	}
 
 	@Override
 	public void mouseDragged(final MouseEvent e) {
 		super.mouseDragged(e);
-	}
+		}
 
 	@Override
 	public void mouseClicked(final MouseEvent e) {

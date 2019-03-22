@@ -66,18 +66,18 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:git:git://github.com/fiji/Cell_Counter</connection>
-		<developerConnection>scm:git:git@github.com:fiji/Cell_Counter</developerConnection>
+		<connection>scm:git:git://github.com/fiji/Plant_Counter</connection>
+		<developerConnection>scm:git:git@github.com:fiji/Plant_Counter</developerConnection>
 		<tag>HEAD</tag>
-		<url>https://github.com/fiji/Cell_Counter</url>
+		<url>https://github.com/fiji/Plant_Counter</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/fiji/Cell_Counter/issues</url>
+		<url>https://github.com/fiji/Plant_Counter/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>Travis CI</system>
-		<url>https://travis-ci.org/fiji/Cell_Counter</url>
+		<url>https://travis-ci.org/fiji/Plant_Counter</url>
 	</ciManagement>
 
 	<properties>
