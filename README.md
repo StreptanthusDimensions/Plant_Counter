@@ -35,4 +35,4 @@ Make sure that you have java8 and maven instalelled
     brew cask install java8
     brew install maven
 
-Then from the project directory `maven intall` will build the jar.  You will still need to copy it to fiji by hand.
+Then use maven to build using your favorite IDE, or, from the project directory type `maven intall` to build the jar.  You will still need to copy it to fiji by hand.
