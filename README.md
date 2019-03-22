@@ -2,7 +2,7 @@
 
 The plant counter is an imageJ plugin.  It enables counting of plant organs and records the bounding box around each structure.  This may be useful for developing machine learning classifiers for plant structure.
 
-This plugin is based on the [Cell Counter](https://github.com/fiji/Cell_Counter) plugin by Kurt De Vos and Curtis Reudin.
+This plugin is based on the [Cell Counter](https://github.com/fiji/Cell_Counter) plugin by Kurt De Vos and Curtis Rueden.
 
 ### Installation
 
