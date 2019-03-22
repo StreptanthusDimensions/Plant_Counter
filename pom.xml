@@ -15,7 +15,7 @@
 
 	<name>Plant Counter</name>
 	<description>Plant Counter plugin for ImageJ.</description>
-	<url>https://imagej.net/Plant_Counter</url>
+	<url>https://github.com/StreptanthusDimensions/Plant_Counter</url>
 	<inceptionYear>2019</inceptionYear>
 	<organization>
 		<name>Maloof Lab</name>
@@ -49,6 +49,7 @@
 			<roles>
 				<role>founder</role>
 			</roles>
+		</contributor>
 		<contributor>
 			<name>Kurt De Vos</name>
 			<roles><role>founder</role></roles>
@@ -81,7 +82,11 @@
 		<system>GitHub Issues</system>
 		<url>https://github.com/StreptanthusDimensions/Plant_Counter/issues</url>
 	</issueManagement>
-
+	<ciManagement>
+		<system>None</system>
+		<url>None</url>
+	</ciManagement>
+	
 	<properties>
 		<license.licenseName>gpl_v3</license.licenseName>
 		<license.copyrightOwners>Fiji developers.</license.copyrightOwners>
