@@ -93,5 +93,9 @@ public class PlantCntrMarker {
 	public int getBoxH() {
 		return (int) Math.round(rect.getHeight());
 	}
+	
+	public void setRect(final Rectangle rect) {
+		this.rect = rect;
+	}
 
 }

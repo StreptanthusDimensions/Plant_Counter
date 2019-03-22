@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
+import java.awt.Rectangle;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -106,15 +108,30 @@ public class ReadXML {
 				markerTypeElement.getElementsByTagName("Marker");
 			for (int j = 0; j < markerNodeList.getLength(); j++) {
 				final Element markerElement = getElement(markerNodeList, j);
-				final NodeList markerXNodeList =
-					markerElement.getElementsByTagName("MarkerX");
-				final NodeList markerYNodeList =
-					markerElement.getElementsByTagName("MarkerY");
+				final NodeList markerXCenterNodeList =
+					markerElement.getElementsByTagName("MarkerXCenter");
+				final NodeList markerYCenterNodeList =
+					markerElement.getElementsByTagName("MarkerYCenter");
+				final NodeList markerXBoxNodeList =
+					markerElement.getElementsByTagName("MarkerXBox");
+				final NodeList markerYBoxNodeList =
+					markerElement.getElementsByTagName("MarkerYBox");
+				final NodeList markerWBoxNodeList =
+					markerElement.getElementsByTagName("MarkerWBox");
+				final NodeList markerHBoxNodeList =
+					markerElement.getElementsByTagName("MarkerHBox");
 				final NodeList markerZNodeList =
 					markerElement.getElementsByTagName("MarkerZ");
 				final PlantCntrMarker marker = new PlantCntrMarker();
-				marker.setX(Integer.parseInt(readValue(markerXNodeList, 0)));
-				marker.setY(Integer.parseInt(readValue(markerYNodeList, 0)));
+				final Rectangle rect = new Rectangle(
+					Integer.parseInt(readValue(markerXBoxNodeList, 0)),
+					Integer.parseInt(readValue(markerYBoxNodeList, 0)),
+					Integer.parseInt(readValue(markerWBoxNodeList, 0)),
+					Integer.parseInt(readValue(markerHBoxNodeList, 0))
+					);
+				marker.setX(Integer.parseInt(readValue(markerXCenterNodeList, 0)));
+				marker.setY(Integer.parseInt(readValue(markerYCenterNodeList, 0)));
+				marker.setRect(rect);
 				marker.setZ(Integer.parseInt(readValue(markerZNodeList, 0)));
 				markerVector.add(marker);
 			}
