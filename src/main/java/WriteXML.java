@@ -89,12 +89,20 @@ public class WriteXML {
 				final ListIterator<PlantCntrMarker> lit = markerVector.listIterator();
 				while (lit.hasNext()) {
 					final PlantCntrMarker marker = lit.next();
-					final int x = marker.getX();
-					final int y = marker.getY();
 					final int z = marker.getZ();
+					final int xcenter = marker.getX();
+					final int ycenter = marker.getY();
+					final int xbox = marker.getBoxX();
+					final int ybox = marker.getBoxY();
+					final int wbox = marker.getBoxW();
+					final int hbox = marker.getBoxH();
 					out.write("         <Marker>\r\n");
-					out.write("             <MarkerX>" + x + "</MarkerX>\r\n");
-					out.write("             <MarkerY>" + y + "</MarkerY>\r\n");
+					out.write("             <MarkerXCenter>" + xcenter + "</MarkerXCenter>\r\n");
+					out.write("             <MarkerYCenter>" + ycenter + "</MarkerYCenter>\r\n");
+					out.write("             <MarkerXBox>" + xbox + "</MarkerXBox>\r\n");
+					out.write("             <MarkerYBox>" + ybox + "</MarkerYBox>\r\n");
+					out.write("             <MarkerWBox>" + wbox + "</MarkerWBox>\r\n");
+					out.write("             <MarkerHBox>" + hbox + "</MarkerHBox>\r\n");
 					out.write("             <MarkerZ>" + z + "</MarkerZ>\r\n");
 					out.write("         </Marker>\r\n");
 				}
