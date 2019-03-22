@@ -4,4 +4,8 @@
 /.settings/
 
 # Maven #
-/target/
+/target/*tests.jar
+/target/*sources.jar
+/target/*classes
+/target/generated*
+/target/maven*

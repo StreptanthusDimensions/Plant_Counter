@@ -4,7 +4,7 @@ The plant counter is an imageJ plugin.  It enables counting of plant organs and 
 
 ### Installation
 
-Copy the file `Plant_Counter-0.1.jar` from `target` into the plugins folder of Fiji.  Restart Fiji.
+Copy the file `Plant_Counter-x.y.jar` from `target` into the plugins folder of Fiji.  Restart Fiji.
 
 ### Usage
 
