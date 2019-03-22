@@ -77,5 +77,21 @@ public class PlantCntrMarker {
 	public void setZ(final int z) {
 		this.z = z;
 	}
+	
+	public int getBoxX() {
+		return (int) Math.round(rect.getX())
+	}
+	
+	public int getBoxY() {
+		return (int) Math.round(rect.getY())
+	}
+	
+	public int getBoxW() {
+		return (int) Math.round(rec.getWidth())
+	}
+	
+	public int getBoxH() {
+		return (int) Math.round(rec.getHeight())
+	}
 
 }

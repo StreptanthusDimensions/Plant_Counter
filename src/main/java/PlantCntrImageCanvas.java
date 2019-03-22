@@ -219,9 +219,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	}
 
 	public void measure() {
-		Calibration cal = img.getCalibration();	
-		String unit = cal.getUnit();
-		String columnHeadings = String.format("Type\tSlice\tX\tY\tValue\tC-pos\tZ-pos\tT-pos\tX(%s)\tY(%s)\tZ(%s)",unit,unit,unit);
+		String columnHeadings = String.format("Type\tSlice\tcenterX\tcenterY\tboxX\tboxY\tboxW\tboxH");
 		IJ.setColumnHeadings(columnHeadings);
 		
 		
@@ -237,22 +235,16 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				while (mit.hasNext()) {
 					final PlantCntrMarker m = mit.next();
 					if (m.getZ() == i) {
-						final int xM = m.getX();
-						final int yM = m.getY();
 						final int zM = m.getZ();
-						final double value = ip.getPixelValue(xM, yM);
+						final int xMcenter = m.getX();
+						final int yMcenter = m.getY();
+						final int xMbox = m.getBoxX();
+						final int YMbox = m.getBoxY();
+						final int wMbox = m.getBoxW();
+						final int hMbox = m.getBoxH();
 						
-						int[] realPosArray = img.convertIndexToPosition(zM); // from the slice we get the array  [channel, slice, frame]
-						final int channel 	= realPosArray[0];
-						final int zPos		= realPosArray[1];
-						final int frame 	= realPosArray[2];
-						final double xMcal 	= xM * cal.pixelWidth ;
-						final double yMcal 	= yM * cal.pixelHeight;
-						final double zMcal 	= (zPos-1) * cal.pixelDepth; 		// zPos instead of zM , start at 1 while should start at 0.  
-						
-						String resultsRow = String.format("%d\t%d\t%d\t%d\t%f\t%d\t%d\t%d\t%.3f\t%.3f\t%.3f",typeID,zM,xM,yM,value,channel,zPos,frame,xMcal,yMcal,zMcal);
+						String resultsRow = String.format("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox);
 						IJ.write(resultsRow);
-						//IJ.write(typeID + "\t" + zM + "\t" + xM + "\t" + yM + "\t" + value + "\t" + channel + "\t" + zPos + "\t" + frame + "\t" + xMcal + "\t" + yMcal + "\t" +zMcal);
 						
 					}
 				}
