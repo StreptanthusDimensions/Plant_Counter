@@ -79,19 +79,19 @@ public class PlantCntrMarker {
 	}
 	
 	public int getBoxX() {
-		return (int) Math.round(rect.getX())
+		return (int) Math.round(rect.getX());
 	}
 	
 	public int getBoxY() {
-		return (int) Math.round(rect.getY())
+		return (int) Math.round(rect.getY());
 	}
 	
 	public int getBoxW() {
-		return (int) Math.round(rec.getWidth())
+		return (int) Math.round(rect.getWidth());
 	}
 	
 	public int getBoxH() {
-		return (int) Math.round(rec.getHeight())
+		return (int) Math.round(rect.getHeight());
 	}
 
 }

@@ -239,7 +239,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 						final int xMcenter = m.getX();
 						final int yMcenter = m.getY();
 						final int xMbox = m.getBoxX();
-						final int YMbox = m.getBoxY();
+						final int yMbox = m.getBoxY();
 						final int wMbox = m.getBoxW();
 						final int hMbox = m.getBoxH();
 						
