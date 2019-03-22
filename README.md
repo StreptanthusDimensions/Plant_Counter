@@ -32,7 +32,7 @@ Please create an [issue](https://github.com/StreptanthusDimensions/Plant_Counter
 
 If you want to build this yourself:
 
-Clone the repo to your copmuter.
+Clone the repo to your computer.
 
 #### Mac
 
