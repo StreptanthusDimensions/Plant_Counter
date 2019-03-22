@@ -31,6 +31,7 @@ import ij.gui.Roi;
 import ij.gui.Toolbar;
 import ij.measure.Calibration;
 import ij.process.ImageProcessor;
+import imagej.roi;
 
 import java.awt.BasicStroke;
 import java.awt.Cursor;
@@ -84,8 +85,9 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 			return;
 		}
 
-		final int x = super.offScreenX(e.getX());
-		final int y = super.offScreenY(e.getY());
+		 final int x = super.offScreenX(e.getX());
+		 final int y = super.offScreenY(e.getY());
+		 final ROITree rt = getROIs(img);
 		if (!delmode) {
 			final PlantCntrMarker m = new PlantCntrMarker(x, y, img.getCurrentSlice());
 			currentMarkerVector.addMarker(m);
