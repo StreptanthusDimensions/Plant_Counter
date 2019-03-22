@@ -86,14 +86,14 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 
 		 //final int x = super.offScreenX(e.getX());
 		 //final int y = super.offScreenY(e.getY());
-		 Roi r = img.getRoi();
-		 final int x = (int) Math.round(r.getContourCentroid()[0]);
-		 final int y = (int) Math.round(r.getContourCentroid()[1]);
+		 Rectangle r = img.getRoi().getBounds();
 		if (!delmode) {
-			final PlantCntrMarker m = new PlantCntrMarker(x, y, img.getCurrentSlice());
+			final PlantCntrMarker m = new PlantCntrMarker(r, img.getCurrentSlice());
 			currentMarkerVector.addMarker(m);
 		}
 		else {
+			final int x = (int) Math.round(r.getX() + r.getWidth()/2);
+			final int y = (int) Math.round(r.getY() + r.getHeight()/2);
 			final PlantCntrMarker m =
 				currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
 					.getCurrentSlice());

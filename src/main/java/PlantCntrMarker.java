@@ -24,6 +24,8 @@
 
 // Created on December 13, 2005, 8:41 AM
 
+import java.awt.Rectangle;
+
 /**
  * TODO
  *
@@ -31,9 +33,10 @@
  */
 public class PlantCntrMarker {
 
-	private int x;
-	private int y;
-	private int z;
+	private int x; // centroid
+	private int y; // centroid
+	private int z; // slice
+	private Rectangle rect; // bounding rectangle
 
 	/** Creates a new instance of Marker */
 	public PlantCntrMarker() {}
@@ -41,6 +44,13 @@ public class PlantCntrMarker {
 	public PlantCntrMarker(final int x, final int y, final int z) {
 		this.x = x;
 		this.y = y;
+		this.z = z;
+	}
+	
+	public PlantCntrMarker(final Rectangle rect, final int z) {
+		this.rect = rect;
+		this.x = (int) Math.round(rect.getX() + rect.getWidth()/2);
+		this.y = (int) Math.round(rect.getY() + rect.getHeight()/2);
 		this.z = z;
 	}
 
