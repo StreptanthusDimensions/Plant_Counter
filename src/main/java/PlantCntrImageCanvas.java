@@ -225,6 +225,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		String columnHeadings = String.format("Type\tSlice\tcenterX\tcenterY\tboxX\tboxY\tboxW\tboxH");
 		IJ.setColumnHeadings(columnHeadings);
 		
+		final String filename = img.getTitle().substring(17);
 		
 		for (int i = 1; i <= img.getStackSize(); i++) {
 			img.setSlice(i);
@@ -246,7 +247,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 						final int wMbox = m.getBoxW();
 						final int hMbox = m.getBoxH();
 						
-						String resultsRow = String.format("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox);
+						String resultsRow = String.format("%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", filename, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox);
 						IJ.write(resultsRow);
 						
 					}
