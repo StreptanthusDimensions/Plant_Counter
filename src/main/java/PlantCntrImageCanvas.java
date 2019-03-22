@@ -79,28 +79,31 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 
 	@Override
 	public void mouseReleased(final MouseEvent e) {
-		if (currentMarkerVector == null) {
-			IJ.error("Select a counter type first!");
-			return;
-		}
-
-		 //final int x = super.offScreenX(e.getX());
-		 //final int y = super.offScreenY(e.getY());
-		 Rectangle r = img.getRoi().getBounds();
-		if (!delmode) {
-			final PlantCntrMarker m = new PlantCntrMarker(r, img.getCurrentSlice());
-			currentMarkerVector.addMarker(m);
+		if (e.getClickCount() == 2) {
+			if (currentMarkerVector == null) {
+				IJ.error("Select a counter type first!");
+				return;
+			}
+			
+			Rectangle r = img.getRoi().getBounds();
+			if (!delmode) {
+				final PlantCntrMarker m = new PlantCntrMarker(r, img.getCurrentSlice());
+				currentMarkerVector.addMarker(m);
+			}
+			else {
+				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
+				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
+				final PlantCntrMarker m =
+					currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
+						.getCurrentSlice());
+				currentMarkerVector.remove(m);
+			}
+			repaint();
+			cc.populateTxtFields();
 		}
 		else {
-			final int x = (int) Math.round(r.getX() + r.getWidth()/2);
-			final int y = (int) Math.round(r.getY() + r.getHeight()/2);
-			final PlantCntrMarker m =
-				currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
-					.getCurrentSlice());
-			currentMarkerVector.remove(m);
+			super.mouseReleased(e);
 		}
-		repaint();
-		cc.populateTxtFields();
 	}
 
 	@Override
