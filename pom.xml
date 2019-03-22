@@ -11,15 +11,15 @@
 
 	<groupId>sc.fiji</groupId>
 	<artifactId>Plant_Counter</artifactId>
-	<version>2.2.3-SNAPSHOT</version>
+	<version>0.1</version>
 
 	<name>Plant Counter</name>
 	<description>Plant Counter plugin for ImageJ.</description>
 	<url>https://imagej.net/Plant_Counter</url>
-	<inceptionYear>2001</inceptionYear>
+	<inceptionYear>2019</inceptionYear>
 	<organization>
-		<name>Fiji</name>
-		<url>https://fiji.sc/</url>
+		<name>Maloof Lab</name>
+		<url>https://malooflab.phytonetworks.org/</url>
 	</organization>
 	<licenses>
 		<license>
@@ -31,18 +31,24 @@
 
 	<developers>
 		<developer>
-			<id>ctrueden</id>
-			<name>Curtis Rueden</name>
-			<url>https://imagej.net/User:Rueden</url>
+			<id>jnmaloof</id>
+			<name>Julin Maloof</name>
 			<roles>
 				<role>lead</role>
 				<role>reviewer</role>
 				<role>support</role>
 				<role>maintainer</role>
 			</roles>
+			<url>http://malooflab.phytonetworks.org/people/julin-maloof/</url>
 		</developer>
 	</developers>
 	<contributors>
+		<contributor>
+			<name>Curtis Rueden</name>
+			<url>https://imagej.net/User:Rueden</url>
+			<roles>
+				<role>founder</role>
+			</roles>
 		<contributor>
 			<name>Kurt De Vos</name>
 			<roles><role>founder</role></roles>
@@ -66,19 +72,15 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:git:git://github.com/fiji/Plant_Counter</connection>
-		<developerConnection>scm:git:git@github.com:fiji/Plant_Counter</developerConnection>
+		<connection>scm:git:git://github.com/StreptanthusDimensions/Plant_Counter</connection>
+		<developerConnection>scm:git:git@github.com:StreptanthusDimensions/Plant_Counter</developerConnection>
 		<tag>HEAD</tag>
-		<url>https://github.com/fiji/Plant_Counter</url>
+		<url>https://github.com/StreptanthusDimensions/Plant_Counter</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/fiji/Plant_Counter/issues</url>
+		<url>https://github.com/StreptanthusDimensions/Plant_Counter/issues</url>
 	</issueManagement>
-	<ciManagement>
-		<system>Travis CI</system>
-		<url>https://travis-ci.org/fiji/Plant_Counter</url>
-	</ciManagement>
 
 	<properties>
 		<license.licenseName>gpl_v3</license.licenseName>
