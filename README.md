@@ -8,6 +8,12 @@ This plugin is based on the [Cell Counter](https://github.com/fiji/Cell_Counter)
 
 [Download](https://github.com/StreptanthusDimensions/Plant_Counter/raw/master/target/Plant_Counter-0.1.jar) the file `Plant_Counter-x.y.jar` from the `target` directory and place it in the plugins folder of Fiji.  Restart Fiji.
 
+(On a mac you can find the plugins folder by right-clicking (Or ctrl-clicking) on the Fiji application in the Finder and choosing `Show Package Contents`)
+
+### Update
+
+Delete any old versions that you have in the Fiji plugins folder.  Then follow the installation instructions above.
+
 ### Usage
 
 1. Open an image
