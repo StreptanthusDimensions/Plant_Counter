@@ -222,7 +222,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	}
 
 	public void measure() {
-		String columnHeadings = String.format("Type\tSlice\tcenterX\tcenterY\tboxX\tboxY\tboxW\tboxH");
+		String columnHeadings = String.format("File\tType\tSlice\tcenterX\tcenterY\tboxX\tboxY\tboxW\tboxH");
 		IJ.setColumnHeadings(columnHeadings);
 		
 		final String filename = img.getTitle().substring(17);
