@@ -33,6 +33,13 @@ Delete any old versions that you have in the Fiji plugins folder.  Then follow t
 ### Problems?
 
 Please create an [issue](https://github.com/StreptanthusDimensions/Plant_Counter/issues) in this github repository.  
+
+### Release notes
+
+* V0.1: Initial release
+* V0.1.1: 
+    - Fix column heading alignment in measurement table.
+    - Provide calibrated measurements as well as pixel measurements in measurement table.
     
 ### Build instructions
 
