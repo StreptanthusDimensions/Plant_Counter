@@ -222,7 +222,14 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	}
 
 	public void measure() {
-		String columnHeadings = String.format("File\tType\tSlice\tcenterX\tcenterY\tboxX\tboxY\tboxW\tboxH");
+		Calibration cal = img.getCalibration();
+		String unit = cal.getUnit();
+		String columnHeadings = new String();
+		String resultsRow = new String();
+		
+		if (unit.equals("pixel"))  columnHeadings = String.format("File\tType\tSlice\tcenterX\tcenterY\tboxX\tboxY\tboxW\tboxH");
+		else columnHeadings = String.format("File\tType\tSlice\tcenterX(px)\tcenterY(px)\tboxX(px)\tboxY(px)\tboxW(px)\tboxH(px)\tcenterX(%s)\tcenterY(%s)\tboxX(%s)\tboxY(%s)\tboxW(%s)\tboxH(%s)", unit, unit, unit, unit, unit, unit);
+		
 		IJ.setColumnHeadings(columnHeadings);
 		
 		final String filename = img.getTitle().substring(17);
@@ -240,14 +247,23 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 					final PlantCntrMarker m = mit.next();
 					if (m.getZ() == i) {
 						final int zM = m.getZ();
+						
 						final int xMcenter = m.getX();
 						final int yMcenter = m.getY();
 						final int xMbox = m.getBoxX();
 						final int yMbox = m.getBoxY();
 						final int wMbox = m.getBoxW();
 						final int hMbox = m.getBoxH();
+					
+						final double xMcenterCal = xMcenter * cal.pixelWidth;
+						final double yMcenterCal = yMcenter * cal.pixelHeight;
+						final double xMboxCal = xMbox * cal.pixelWidth;
+						final double yMboxCal = yMbox * cal.pixelWidth;
+						final double wMboxCal = wMbox * cal.pixelWidth;
+						final double hMboxCal = hMbox * cal.pixelWidth;
 						
-						String resultsRow = String.format("%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", filename, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox);
+						if (unit.equals("pixel")) resultsRow = String.format("%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", filename, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox);
+						else resultsRow = String.format("%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f", filename, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox, xMcenterCal, yMcenterCal, xMboxCal, yMboxCal, wMboxCal, hMboxCal);
 						IJ.write(resultsRow);
 						
 					}
