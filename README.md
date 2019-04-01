@@ -17,7 +17,7 @@ Delete any old versions that you have in the Fiji plugins folder.  Then follow t
 ### Usage
 
 1. Open an image
-2. Start the plugin.  From the plugins menu: `Analyze > Plant Counter > Plant Counter`
+2. Start the plugin.  From the menu bar: `Plugins > Analyze > Plant Counter > Plant Counter`
 3. Click `Initialize`
 4. Select the category
 5. Make sure that the rectangle tools is selected from the Fiji toolbar
