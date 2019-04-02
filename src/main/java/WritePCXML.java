@@ -39,16 +39,16 @@ import java.util.Vector;
  *
  * @author Kurt De Vos
  */
-public class WriteXML {
+public class WritePCXML {
 
 	private OutputStream XMLFileOut;
 	private OutputStream XMLBuffOut;
 	private OutputStreamWriter out;
 
 	/**
-	 * Creates a new instance of ODWriteXMLODD
+	 * Creates a new instance of ODWritePCXMLODD
 	 */
-	public WriteXML(final String XMLFilepath) {
+	public WritePCXML(final String XMLFilepath) {
 		try {
 			XMLFileOut = new FileOutputStream(XMLFilepath); // add FilePath
 			XMLBuffOut = new BufferedOutputStream(XMLFileOut);
@@ -63,7 +63,7 @@ public class WriteXML {
 		}
 	}
 
-	public boolean writeXML(final String imgFilename,
+	public boolean writePCXML(final String imgFilename,
 		final Vector<PlantCntrMarkerVector> typeVector, final int currentType)
 	{
 		try {
@@ -73,8 +73,7 @@ public class WriteXML {
 
 			// write the image properties
 			out.write(" <Image_Properties>\r\n");
-			out
-				.write("     <Image_Filename>" + imgFilename + "</Image_Filename>\r\n");
+			out.write("     <Image_Filename>" + imgFilename + "</Image_Filename>\r\n");
 			out.write(" </Image_Properties>\r\n");
 
 			// write the marker data

@@ -44,7 +44,7 @@ import org.xml.sax.SAXException;
  *
  * @author Kurt De Vos
  */
-public class ReadXML {
+public class ReadPCXML {
 
 	private boolean verbose;
 	private DocumentBuilderFactory dbf;
@@ -55,9 +55,9 @@ public class ReadXML {
 	public static final int CURRENT_TYPE = 1;
 
 	/**
-	 * Creates a new instance of ODReadXMLODD
+	 * Creates a new instance of ODReadPCXMLODD
 	 */
-	public ReadXML(final String XMLFilePath) {
+	public ReadPCXML(final String XMLFilePath) {
 		setVerbose(verbose);
 		try {
 			dbf = DocumentBuilderFactory.newInstance();

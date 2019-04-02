@@ -777,15 +777,15 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	public void loadMarkers() {
 		final String filePath =
 			getFilePath(new JFrame(), "Select Marker File", OPEN);
-		final ReadXML rxml = new ReadXML(filePath);
+		final ReadPCXML rxml = new ReadPCXML(filePath);
 		final String storedfilename =
-			rxml.readImgProperties(ReadXML.IMAGE_FILE_PATH);
+			rxml.readImgProperties(ReadPCXML.IMAGE_FILE_PATH);
 		if (storedfilename.equals(img.getTitle())) {
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData();
 			typeVector = loadedvector;
 			ic.setTypeVector(typeVector);
 			final int index =
-				Integer.parseInt(rxml.readImgProperties(ReadXML.CURRENT_TYPE));
+				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
 			currentMarkerVector = typeVector.get(index);
 			ic.setCurrentMarkerVector(currentMarkerVector);
 
@@ -815,8 +815,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		String filePath =
 			getFilePath(new JFrame(), "Save Marker File (.xml)", SAVE);
 		if (!filePath.endsWith(".xml")) filePath += ".xml";
-		final WriteXML wxml = new WriteXML(filePath);
-		wxml.writeXML(img.getTitle(), typeVector, typeVector
+		final WritePCXML wxml = new WritePCXML(filePath);
+		wxml.writePCXML(img.getTitle(), typeVector, typeVector
 			.indexOf(currentMarkerVector));
 	}
 
