@@ -63,7 +63,7 @@ public class WritePCXML {
 		}
 	}
 
-	public boolean writePCXML(final String imgFilename,
+	public boolean writePCXML(final String imgFilename, final int imgW, final int imgH,
 		final Vector<PlantCntrMarkerVector> typeVector, final int currentType)
 	{
 		try {
@@ -74,6 +74,8 @@ public class WritePCXML {
 			// write the image properties
 			out.write(" <Image_Properties>\r\n");
 			out.write("     <Image_Filename>" + imgFilename + "</Image_Filename>\r\n");
+			out.write("     <Image_Width>" + Integer.toString(imgW) + "</Image_Width>\r\n");
+			out.write("     <Image_Height>" + Integer.toString(imgH) + "</Image_Height>\r\n");
 			out.write(" </Image_Properties>\r\n");
 
 			// write the marker data

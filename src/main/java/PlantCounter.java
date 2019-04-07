@@ -816,7 +816,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			getFilePath(new JFrame(), "Save Marker File (.xml)", SAVE);
 		if (!filePath.endsWith(".xml")) filePath += ".xml";
 		final WritePCXML wxml = new WritePCXML(filePath);
-		wxml.writePCXML(img.getTitle(), typeVector, typeVector
+		wxml.writePCXML(img.getTitle(), img.getWidth(), img.getHeight(), typeVector, typeVector
 			.indexOf(currentMarkerVector));
 	}
 
