@@ -167,7 +167,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 		radioGrp = new ButtonGroup();// to group the radiobuttons
 
-		dynGrid = new GridLayout(8, 1);
+		dynGrid = new GridLayout(cntrNames.getSize(), 1);
 		dynGrid.setVgap(2);
 
 		// this panel will keep the dynamic GUI parts
@@ -203,14 +203,9 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		gb.setConstraints(dynPanel, gbc);
 		getContentPane().add(dynPanel);
 
-		dynButtonPanel.add(makeDynRadioButton(1));
-		dynButtonPanel.add(makeDynRadioButton(2));
-		dynButtonPanel.add(makeDynRadioButton(3));
-		dynButtonPanel.add(makeDynRadioButton(4));
-		dynButtonPanel.add(makeDynRadioButton(5));
-		dynButtonPanel.add(makeDynRadioButton(6));
-		dynButtonPanel.add(makeDynRadioButton(7));
-		dynButtonPanel.add(makeDynRadioButton(8));
+		for (int i = 1; i <= cntrNames.getSize(); i++) {
+			dynButtonPanel.add(makeDynRadioButton(i));
+		}
 
 		// create a "static" panel to hold control buttons
 		statButtonPanel = new JPanel();
@@ -249,33 +244,33 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		gb.setConstraints(separator, gbc);
 		statButtonPanel.add(separator);
 
-		gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 0;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		addButton = makeButton(ADD, "add a counter type");
-		gb.setConstraints(addButton, gbc);
-		statButtonPanel.add(addButton);
-
-		gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 0;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		removeButton = makeButton(REMOVE, "remove last counter type");
-		gb.setConstraints(removeButton, gbc);
-		statButtonPanel.add(removeButton);
-
-		gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 0;
-		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		renameButton = makeButton(RENAME, "rename selected counter type");
-		renameButton.setEnabled(false);
-		gb.setConstraints(renameButton, gbc);
-		statButtonPanel.add(renameButton);
+		// gbc = new GridBagConstraints();
+		// gbc.anchor = GridBagConstraints.NORTHWEST;
+		// gbc.fill = GridBagConstraints.BOTH;
+		// gbc.gridx = 0;
+		// gbc.gridwidth = GridBagConstraints.REMAINDER;
+		// addButton = makeButton(ADD, "add a counter type");
+		// gb.setConstraints(addButton, gbc);
+		// statButtonPanel.add(addButton);
+		// 
+		// gbc = new GridBagConstraints();
+		// gbc.anchor = GridBagConstraints.NORTHWEST;
+		// gbc.fill = GridBagConstraints.BOTH;
+		// gbc.gridx = 0;
+		// gbc.gridwidth = GridBagConstraints.REMAINDER;
+		// removeButton = makeButton(REMOVE, "remove last counter type");
+		// gb.setConstraints(removeButton, gbc);
+		// statButtonPanel.add(removeButton);
+		// 
+		// gbc = new GridBagConstraints();
+		// gbc.anchor = GridBagConstraints.NORTHWEST;
+		// gbc.fill = GridBagConstraints.BOTH;
+		// gbc.gridx = 0;
+		// gbc.gridwidth = GridBagConstraints.REMAINDER;
+		// renameButton = makeButton(RENAME, "rename selected counter type");
+		// renameButton.setEnabled(false);
+		// gb.setConstraints(renameButton, gbc);
+		// statButtonPanel.add(renameButton);
 
 		gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
