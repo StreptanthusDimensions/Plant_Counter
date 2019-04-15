@@ -26,18 +26,25 @@ This class is created to load category names from a file
 */
 
 import ij.IJ;
+import ij.IJ.ExceptionHandler;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.File;
 
 public class PlantCntrNames {
     private String directory = 	IJ.getDirectory("home");
-    private String nameFile = "/Users/mkyong/csv/country.csv";
+    private String name = ".PlantCounterNames.csv";
+    private File nameFile = new File(directory, name);
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
-        IJ.showMessage("home dir", directory);
+        IJ.showMessage("file path", nameFile.getAbsolutePath());
+        try {nameFile.createNewFile();} /*only creates new file if path empty*/
+        catch (IOException e) {
+            IJ.showMessage("exception", e.getMessage());
+        }
     }
 }
 
