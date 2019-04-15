@@ -25,19 +25,19 @@
 This class is created to load category names from a file
 */
 
-import ij.IJ
+import ij.IJ;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class PlantCntrNames {
-    private String directory = 	getDirectory("user.home")
+    private String directory = 	IJ.getDirectory("user.home");
     private String nameFile = "/Users/mkyong/csv/country.csv";
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
-        showMessage(directory)
+        IJ.showMessage(directory);
     }
 }
 
