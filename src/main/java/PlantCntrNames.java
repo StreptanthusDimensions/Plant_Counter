@@ -29,22 +29,45 @@ import ij.IJ;
 import ij.IJ.ExceptionHandler;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 
 public class PlantCntrNames {
     private String directory = 	IJ.getDirectory("home");
-    private String name = ".PlantCounterNames.csv";
+    private String name = ".PlantCounterNames.txt";
     private File nameFile = new File(directory, name);
+    private int totalDefaultCats = 8; /* number of default categories to create if no file*/
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
         IJ.showMessage("file path", nameFile.getAbsolutePath());
-        try {nameFile.createNewFile();} /*only creates new file if path empty*/
-        catch (IOException e) {
-            IJ.showMessage("exception", e.getMessage());
+        if (nameFile.exists()) {
+            IJ.showMessage("status", "file exists");
+        } else {
+            IJ.showMessage("status", "file does not exist");
+            try {nameFile.createNewFile();} /*only creates new file if path empty*/
+            catch (IOException e) {
+                IJ.showMessage("exception", e.getMessage());
+            }
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(nameFile));
+                bw.write("# Custom Category File for Plant Counter");
+                bw.newLine();
+                bw.write("# One category per line");
+                bw.newLine();
+                for (int i = 1; i <= totalDefaultCats; i++) {
+                    bw.write("Type" + Integer.toString(i));
+                    bw.newLine();
+                }
+                bw.close();
+            } catch (IOException e) {
+                IJ.showMessage("exception", e.getMessage());
+            }
         }
+
     }
 }
 
