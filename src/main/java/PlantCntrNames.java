@@ -32,12 +32,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class PlantCntrNames {
-    private String directory = 	IJ.getDirectory("user.home");
+    private String directory = 	IJ.getDirectory("home");
     private String nameFile = "/Users/mkyong/csv/country.csv";
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
-        IJ.showMessage(directory);
+        IJ.showMessage("home dir", directory);
     }
 }
 

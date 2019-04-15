@@ -137,7 +137,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		typeVector = new Vector<PlantCntrMarkerVector>();
 		txtFieldVector = new Vector<JTextField>();
 		dynRadioVector = new Vector<JRadioButton>();
-		PlantCntrNames cntrNames = new PlantCntrNames();
 		initGUI();
 		populateTxtFields();
 		instance = this;
@@ -161,6 +160,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	private void initGUI() {
+		PlantCntrNames cntrNames = new PlantCntrNames();
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		final GridBagLayout gb = new GridBagLayout();
 		getContentPane().setLayout(gb);
