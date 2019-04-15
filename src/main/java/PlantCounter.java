@@ -137,6 +137,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		typeVector = new Vector<PlantCntrMarkerVector>();
 		txtFieldVector = new Vector<JTextField>();
 		dynRadioVector = new Vector<JRadioButton>();
+		cntrnmaes = new PlantCounterNames();
 		initGUI();
 		populateTxtFields();
 		instance = this;
