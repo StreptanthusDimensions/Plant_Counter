@@ -45,9 +45,7 @@ public class PlantCntrNames {
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
-        IJ.showMessage("file path", nameFile.getAbsolutePath());
         if (nameFile.exists()) {
-            IJ.showMessage("status", "file exists");
             try {
                 String line = null;
                 BufferedReader br = new BufferedReader(new FileReader(nameFile));
@@ -62,7 +60,6 @@ public class PlantCntrNames {
             }
             
         } else {
-            IJ.showMessage("status", "file does not exist");
             try {nameFile.createNewFile();} /*only creates new file if path empty*/
             catch (IOException e) {
                 IJ.showMessage("exception", e.getMessage());
@@ -91,6 +88,10 @@ public class PlantCntrNames {
     
     public int getSize() {
         return CntrNames.size();
+    }
+    
+    public String get(int id) {
+        return CntrNames.get(id-1);
     }
 }
 

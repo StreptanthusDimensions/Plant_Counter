@@ -204,7 +204,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		getContentPane().add(dynPanel);
 
 		for (int i = 1; i <= cntrNames.getSize(); i++) {
-			dynButtonPanel.add(makeDynRadioButton(i));
+			dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i)));
 		}
 
 		// create a "static" panel to hold control buttons
@@ -467,8 +467,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		validateLayout();
 	}
 
-	private JRadioButton makeDynRadioButton(final int id) {
-		final JRadioButton jrButton = new JRadioButton("Type " + id);
+	private JRadioButton makeDynRadioButton(final int id, String cntrName) {
+		final JRadioButton jrButton = new JRadioButton(cntrName);
 		jrButton.setActionCommand(TYPE_COMMAND_PREFIX + id);
 		jrButton.addActionListener(this);
 		dynRadioVector.add(jrButton);
@@ -570,45 +570,46 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	public void actionPerformed(final ActionEvent event) {
 		final String command = event.getActionCommand();
 
-		if (command.equals(ADD)) {
-			final int i = dynRadioVector.size() + 1;
-			dynGrid.setRows(i);
-			dynButtonPanel.add(makeDynRadioButton(i));
-			validateLayout();
-
-			if (ic != null) ic.setTypeVector(typeVector);
-		}
-		else if (command.equals(REMOVE)) {
-			if (dynRadioVector.size() > 1) {
-				final JRadioButton rbutton = dynRadioVector.lastElement();
-				dynButtonPanel.remove(rbutton);
-				radioGrp.remove(rbutton);
-				dynRadioVector.removeElementAt(dynRadioVector.size() - 1);
-				dynGrid.setRows(dynRadioVector.size());
-			}
-			if (txtFieldVector.size() > 1) {
-				final JTextField field = txtFieldVector.lastElement();
-				dynTxtPanel.remove(field);
-				txtFieldVector.removeElementAt(txtFieldVector.size() - 1);
-			}
-			if (typeVector.size() > 1) {
-				typeVector.removeElementAt(typeVector.size() - 1);
-			}
-			validateLayout();
-
-			if (ic != null) ic.setTypeVector(typeVector);
-		}
-		else if (command.equals(RENAME)) {
-			if (currentMarkerIndex < 0) return; // no counter type selected
-			final JRadioButton button = dynRadioVector.get(currentMarkerIndex);
-			final String name =
-				IJ.getString("Enter new counter name", button.getText());
-			if (name == null || name.isEmpty()) return;
-			radioGrp.remove(button);
-			button.setText(name);
-			radioGrp.add(button);
-		}
-		else if (command.equals(INITIALIZE)) {
+		// if (command.equals(ADD)) {
+		// 	final int i = dynRadioVector.size() + 1;
+		// 	dynGrid.setRows(i);
+		// 	dynButtonPanel.add(makeDynRadioButton(i));
+		// 	validateLayout();
+		// 
+		// 	if (ic != null) ic.setTypeVector(typeVector);
+		// }
+		// else if (command.equals(REMOVE)) {
+		// 	if (dynRadioVector.size() > 1) {
+		// 		final JRadioButton rbutton = dynRadioVector.lastElement();
+		// 		dynButtonPanel.remove(rbutton);
+		// 		radioGrp.remove(rbutton);
+		// 		dynRadioVector.removeElementAt(dynRadioVector.size() - 1);
+		// 		dynGrid.setRows(dynRadioVector.size());
+		// 	}
+		// 	if (txtFieldVector.size() > 1) {
+		// 		final JTextField field = txtFieldVector.lastElement();
+		// 		dynTxtPanel.remove(field);
+		// 		txtFieldVector.removeElementAt(txtFieldVector.size() - 1);
+		// 	}
+		// 	if (typeVector.size() > 1) {
+		// 		typeVector.removeElementAt(typeVector.size() - 1);
+		// 	}
+		// 	validateLayout();
+		// 
+		// 	if (ic != null) ic.setTypeVector(typeVector);
+		// }
+		// else if (command.equals(RENAME)) {
+		// 	if (currentMarkerIndex < 0) return; // no counter type selected
+		// 	final JRadioButton button = dynRadioVector.get(currentMarkerIndex);
+		// 	final String name =
+		// 		IJ.getString("Enter new counter name", button.getText());
+		// 	if (name == null || name.isEmpty()) return;
+		// 	radioGrp.remove(button);
+		// 	button.setText(name);
+		// 	radioGrp.add(button);
+		// }
+		//else if (command.equals(INITIALIZE)) {
+		if (command.equals(INITIALIZE)) {
 			initializeImage();
 		}
 		else if (command.startsWith(TYPE_COMMAND_PREFIX)) { // COUNT
