@@ -64,7 +64,7 @@ public class WritePCXML {
 	}
 
 	public boolean writePCXML(final String imgFilename, final int imgW, final int imgH,
-		final Vector<PlantCntrMarkerVector> typeVector, final int currentType)
+		final Vector<PlantCntrMarkerVector> typeVector, final int currentType, final PlantCntrNames cntrNames)
 	{
 		try {
 			out.write("<?xml version=\"1.0\" ");
@@ -85,8 +85,10 @@ public class WritePCXML {
 			while (it.hasNext()) {
 				final PlantCntrMarkerVector markerVector = it.next();
 				final int type = markerVector.getType();
+				final String cntrName = cntrNames.get(type);
 				out.write("     <Marker_Type>\r\n");
 				out.write("         <Type>" + type + "</Type>\r\n");
+				out.write("         <Name>" + cntrName + "</Name>\r\n");
 				final ListIterator<PlantCntrMarker> lit = markerVector.listIterator();
 				while (lit.hasNext()) {
 					final PlantCntrMarker marker = lit.next();
