@@ -221,7 +221,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		return new ImagePlus("Markers_" + img.getTitle(), image);
 	}
 
-	public void measure() {
+	public void measure(PlantCntrNames cntrNames) { //unclear why I have to pass cntrNAmes, but I do
 		Calibration cal = img.getCalibration();
 		String unit = cal.getUnit();
 		String columnHeadings = new String();
@@ -236,7 +236,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		IJ.setColumnHeadings(columnHeadings);
 		
 		final String filename = img.getTitle().substring(17);
-		
+				
 		for (int i = 1; i <= img.getStackSize(); i++) {
 			img.setSlice(i);
 			final ImageProcessor ip = img.getProcessor();
@@ -244,7 +244,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 			final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 			while (it.hasNext()) {
 				final PlantCntrMarkerVector mv = it.next();
-				final int typeID = mv.getType();
+				final String typeID = cntrNames.get(mv.getType());
 				final ListIterator<PlantCntrMarker> mit = mv.listIterator();
 				while (mit.hasNext()) {
 					final PlantCntrMarker m = mit.next();
@@ -265,8 +265,8 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 						final double wMboxCal = wMbox * cal.pixelWidth;
 						final double hMboxCal = hMbox * cal.pixelWidth;
 						
-						if (unit.equals("pixel")) resultsRow = String.format("%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", filename, imgW, imgH, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox);
-						else resultsRow = String.format("%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f", filename, imgW, imgH, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox, xMcenterCal, yMcenterCal, xMboxCal, yMboxCal, wMboxCal, hMboxCal);
+						if (unit.equals("pixel")) resultsRow = String.format("%s\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d", filename, imgW, imgH, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox);
+						else resultsRow = String.format("%s\t%d\t%d\t%s\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f", filename, imgW, imgH, typeID, zM, xMcenter, yMcenter, xMbox, yMbox, wMbox, hMbox, xMcenterCal, yMcenterCal, xMboxCal, yMboxCal, wMboxCal, hMboxCal);
 						IJ.write(resultsRow);
 						
 					}

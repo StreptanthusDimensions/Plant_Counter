@@ -95,6 +95,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private final Vector<JTextField> txtFieldVector;
 	private PlantCntrMarkerVector markerVector;
 	private PlantCntrMarkerVector currentMarkerVector;
+	private PlantCntrNames cntrNames;
 	private int currentMarkerIndex;
 
 	private JPanel dynPanel;
@@ -160,12 +161,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	private void initGUI() {
-		PlantCntrNames cntrNames = new PlantCntrNames();
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		final GridBagLayout gb = new GridBagLayout();
 		getContentPane().setLayout(gb);
 
 		radioGrp = new ButtonGroup();// to group the radiobuttons
+
+		PlantCntrNames cntrNames = new PlantCntrNames();
 
 		dynGrid = new GridLayout(cntrNames.getSize(), 1);
 		dynGrid.setVgap(2);
@@ -468,7 +470,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	private JRadioButton makeDynRadioButton(final int id, String cntrName) {
-		final JRadioButton jrButton = new JRadioButton(cntrName);
+		final JRadioButton jrButton = new JRadioButton(id + "_" + cntrName);
 		jrButton.setActionCommand(TYPE_COMMAND_PREFIX + id);
 		jrButton.addActionListener(this);
 		dynRadioVector.add(jrButton);
@@ -692,7 +694,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	public void measure() {
-		ic.measure();
+		ic.measure(cntrNames);
 	}
 
 	public void reset() {
