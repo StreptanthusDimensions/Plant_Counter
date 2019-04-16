@@ -546,9 +546,9 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		numbersCheck.setEnabled(true);
 		showAllCheck.setSelected(false);
 		if (counterImg.getStackSize() > 1) showAllCheck.setEnabled(true);
-		addButton.setEnabled(true);
-		removeButton.setEnabled(true);
-		renameButton.setEnabled(true);
+		//addButton.setEnabled(true);
+		//removeButton.setEnabled(true);
+		//renameButton.setEnabled(true);
 		resultsButton.setEnabled(true);
 		deleteButton.setEnabled(true);
 		resetButton.setEnabled(true);
