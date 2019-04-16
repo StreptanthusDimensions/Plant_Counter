@@ -135,6 +135,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	public PlantCounter() {
 		super("Plant Counter");
 		setResizable(false);
+		IJ.showMessage("initiating plant counter");
+		cntrNames = new PlantCntrNames();
 		typeVector = new Vector<PlantCntrMarkerVector>();
 		txtFieldVector = new Vector<JTextField>();
 		dynRadioVector = new Vector<JRadioButton>();
@@ -166,8 +168,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		getContentPane().setLayout(gb);
 
 		radioGrp = new ButtonGroup();// to group the radiobuttons
-
-		PlantCntrNames cntrNames = new PlantCntrNames();
 
 		dynGrid = new GridLayout(cntrNames.getSize(), 1);
 		dynGrid.setVgap(2);
@@ -507,7 +507,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			@SuppressWarnings("unchecked")
 			final Vector<Roi> displayList =
 				v139t ? img.getCanvas().getDisplayList() : null;
-			ic = new PlantCntrImageCanvas(counterImg, typeVector, this, displayList);
+			ic = new PlantCntrImageCanvas(counterImg, typeVector, this, displayList, cntrNames);
 			new ImageWindow(counterImg, ic);
 		}
 		else if (img.getStackSize() > 1) {
@@ -533,7 +533,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			@SuppressWarnings("unchecked")
 			final Vector<Roi> displayList =
 				v139t ? img.getCanvas().getDisplayList() : null;
-			ic = new PlantCntrImageCanvas(counterImg, typeVector, this, displayList);
+			ic = new PlantCntrImageCanvas(counterImg, typeVector, this, displayList, cntrNames);
 			new StackWindow(counterImg, ic);
 		}
 		
@@ -694,7 +694,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	public void measure() {
-		ic.measure(cntrNames);
+		ic.measure();
 	}
 
 	public void reset() {

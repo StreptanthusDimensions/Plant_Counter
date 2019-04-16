@@ -53,6 +53,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 
 	private Vector<PlantCntrMarkerVector> typeVector;
 	private PlantCntrMarkerVector currentMarkerVector;
+	private PlantCntrNames cntrNames;
 	private final PlantCounter cc;
 	private final ImagePlus img;
 	private boolean delmode = false;
@@ -63,12 +64,14 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	/** Creates a new instance of PlantCntrImageCanvas */
 	public PlantCntrImageCanvas(final ImagePlus img,
 		final Vector<PlantCntrMarkerVector> typeVector, final PlantCounter cc,
-		final Vector<Roi> displayList)
+		final Vector<Roi> displayList,
+		final PlantCntrNames cntrNames)
 	{
 		super(img);
 		this.img = img;
 		this.typeVector = typeVector;
 		this.cc = cc;
+		this.cntrNames = cntrNames;
 		if (displayList != null) this.setDisplayList(displayList);
 	}
 
@@ -221,7 +224,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		return new ImagePlus("Markers_" + img.getTitle(), image);
 	}
 
-	public void measure(PlantCntrNames cntrNames) { //unclear why I have to pass cntrNAmes, but I do
+	public void measure() { 
 		Calibration cal = img.getCalibration();
 		String unit = cal.getUnit();
 		String columnHeadings = new String();

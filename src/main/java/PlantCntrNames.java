@@ -45,6 +45,7 @@ public class PlantCntrNames {
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
+        IJ.showMessage("instantiating PlantCntrNames");
         if (nameFile.exists()) {
             try {
                 String line = null;
