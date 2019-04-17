@@ -41,18 +41,17 @@ public class PlantCntrNames {
     private String name = ".PlantCounterNames.txt";
     private File nameFile = new File(directory, name);
     private int totalDefaultCats = 8; /* number of default categories to create if no file*/
-    private ArrayList<String> CntrNames = new ArrayList<String>();
+    private ArrayList<String> cntrNames = new ArrayList<String>();
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
-        IJ.showMessage("instantiating PlantCntrNames");
         if (nameFile.exists()) {
             try {
                 String line = null;
                 BufferedReader br = new BufferedReader(new FileReader(nameFile));
                 while((line = br.readLine()) != null) {
                     if (line.charAt(0) != "#".charAt(0)) {
-                        CntrNames.add(line);                        
+                        cntrNames.add(line);                        
                     }
                 }
                 br.close();
@@ -74,6 +73,7 @@ public class PlantCntrNames {
                 for (int i = 1; i <= totalDefaultCats; i++) {
                     bw.write("Type" + Integer.toString(i));
                     bw.newLine();
+                    cntrNames.add("Type" + Integer.toString(i));
                 }
                 bw.close();
             } catch (IOException e) {
@@ -84,15 +84,19 @@ public class PlantCntrNames {
     }
     
     public ArrayList<String> getCntrNames() {
-        return CntrNames;
+        return cntrNames;
     }
     
     public int getSize() {
-        return CntrNames.size();
+        return cntrNames.size();
     }
     
     public String get(int id) {
-        return CntrNames.get(id-1);
+        return cntrNames.get(id-1);
+    }
+    
+    public void add(String name) {
+        cntrNames.add(name);
     }
 }
 
