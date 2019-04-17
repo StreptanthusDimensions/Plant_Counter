@@ -247,7 +247,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 			final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 			while (it.hasNext()) {
 				final PlantCntrMarkerVector mv = it.next();
-				final String typeID = cntrNames.get(mv.getType());
+				final String typeID = cntrNames.get(mv.getType()-1);
 				final ListIterator<PlantCntrMarker> mit = mv.listIterator();
 				while (mit.hasNext()) {
 					final PlantCntrMarker m = mit.next();
@@ -294,6 +294,10 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		final PlantCntrMarkerVector currentMarkerVector)
 	{
 		this.currentMarkerVector = currentMarkerVector;
+	}
+	
+	public void setCntrNames(final PlantCntrNames cntrNames) {
+		this.cntrNames = cntrNames;
 	}
 
 	public boolean isDelmode() {

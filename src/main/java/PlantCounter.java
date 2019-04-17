@@ -135,8 +135,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	public PlantCounter() {
 		super("Plant Counter");
 		setResizable(false);
-		IJ.showMessage("initiating plant counter");
 		cntrNames = new PlantCntrNames();
+		cntrNames.fill();
 		typeVector = new Vector<PlantCntrMarkerVector>();
 		txtFieldVector = new Vector<JTextField>();
 		dynRadioVector = new Vector<JRadioButton>();
@@ -206,7 +206,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		getContentPane().add(dynPanel);
 
 		for (int i = 1; i <= cntrNames.getSize(); i++) {
-			dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i)));
+			dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i-1)));
 		}
 
 		// create a "static" panel to hold control buttons
@@ -783,10 +783,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData();
 			typeVector = loadedvector;
 			ic.setTypeVector(typeVector);
+			cntrNames.clear(); // maybe not needed
+			cntrNames = rxml.readCntrNames();
 			final int index =
 				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
 			currentMarkerVector = typeVector.get(index);
 			ic.setCurrentMarkerVector(currentMarkerVector);
+			ic.setCntrNames(cntrNames);
 
 			while (dynRadioVector.size() > typeVector.size()) {
 				if (dynRadioVector.size() > 1) {
@@ -801,6 +804,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 					dynTxtPanel.remove(field);
 					txtFieldVector.removeElementAt(txtFieldVector.size() - 1);
 				}
+			}
+			
+			for (int i = 0; i < cntrNames.getSize(); i++) {
+				final JRadioButton button = dynRadioVector.get(i);
+				radioGrp.remove(button);
+				button.setText(cntrNames.get(i));
+				radioGrp.add(button);
 			}
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);

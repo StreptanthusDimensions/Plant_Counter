@@ -45,6 +45,9 @@ public class PlantCntrNames {
     
     /* Create new instance of PlantCntrNames */
     public PlantCntrNames() {
+    }
+    
+    public void fill() { //Fill from file or create default names
         if (nameFile.exists()) {
             try {
                 String line = null;
@@ -92,11 +95,15 @@ public class PlantCntrNames {
     }
     
     public String get(int id) {
-        return cntrNames.get(id-1);
+        return cntrNames.get(id);
     }
     
     public void add(String name) {
         cntrNames.add(name);
+    }
+    
+    public void clear() { // empty it out
+        cntrNames.clear();
     }
 }
 

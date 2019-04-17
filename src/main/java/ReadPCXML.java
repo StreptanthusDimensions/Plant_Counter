@@ -23,6 +23,7 @@
  */
 
 // Created on 27 November 2004, 10:47
+import ij.IJ;
 
 import java.io.File;
 import java.io.IOException;
@@ -140,6 +141,18 @@ public class ReadPCXML {
 		return typeVector;
 	}
 
+	public PlantCntrNames readCntrNames() {
+		final PlantCntrNames cntrNames = new PlantCntrNames();
+		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
+		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
+			final Element markerTypeElement = getElement(markerTypeNodeList, i);
+			final NodeList nameNodeList =
+				markerTypeElement.getElementsByTagName("Name");
+			cntrNames.add(readValue(nameNodeList, 0));
+		}
+		return cntrNames;
+	}
+	
 	private String readValue(final NodeList nodeList, final int index)
 		throws NullPointerException
 	{
