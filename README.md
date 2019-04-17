@@ -6,13 +6,13 @@ This plugin is based on the [Cell Counter](https://github.com/fiji/Cell_Counter)
 
 ### Installation
 
-Latest version is 0.1.2
+Latest version is 0.1.3a
 
-[Download](https://github.com/StreptanthusDimensions/Plant_Counter/raw/master/target/Plant_Counter-0.1.2.jar) the file `Plant_Counter-x.y.jar` from the `target` directory and place it in the plugins folder of Fiji.  Restart Fiji.
+[Download](https://github.com/StreptanthusDimensions/Plant_Counter/raw/master/target/Plant_Counter-0.1.3a.jar) the file `Plant_Counter-x.y.jar` from the `target` directory and place it in the plugins folder of Fiji.  Restart Fiji.
 
 (On a mac you can find the plugins folder by right-clicking (Or ctrl-clicking) on the Fiji application in the Finder and choosing `Show Package Contents`)
 
-### Update
+### Updating from a previous version
 
 Delete any old versions that you have in the Fiji plugins folder.  Then follow the installation instructions above.
 
@@ -31,6 +31,18 @@ Delete any old versions that you have in the Fiji plugins folder.  Then follow t
     1. Press the "Measure" button to create a spreadsheet of the info.  Cut and paste into an excel spreadsheet.
     2. Press the "Record" button to tally the number of observations of each category.
     2. Press the "Save Markers" to save your results to an xml file.
+
+### Custom Category Labels
+
+* After your open the plugin for the first time, a file `.PlantCounterNames.txt` will be created in your home directory (note: this will be a hidden file on Mac and Linux).
+* Edit this file to create custom category labels.  One label per line.
+* Restart the plug-in and voila!
+* Custom names are saved in the xml
+
+### Known bugs
+
+* When loading and xml marker file, if the file has more categories than the current number of categories present in the plugin, the final categories will not get loaded.
+* The workaround is to make sure that the `.PlantCounterNames.txt` file has at least as many categories as are in your xml file.
     
 ### Problems?
 
@@ -38,7 +50,8 @@ Please create an [issue](https://github.com/StreptanthusDimensions/Plant_Counter
 
 ### Release notes
 
-* v0.1.2: image dimension (in pixels) is now inculded in measurements table and xml file
+* v0.1.3a: custom category names
+* v0.1.2: image dimension (in pixels) is now included in measurements table and xml file
 * V0.1.1a: Attempt to fix writexml error that some users are having.   
 * V0.1.1: 
     - Fix column heading alignment in measurement table.
