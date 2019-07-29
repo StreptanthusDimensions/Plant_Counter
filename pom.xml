@@ -11,7 +11,7 @@
 
 	<groupId>sc.fiji</groupId>
 	<artifactId>Plant_Counter</artifactId>
-	<version>0.1.3a</version>
+	<version>0.1.3b</version>
 
 	<name>Plant Counter</name>
 	<description>Plant Counter plugin for ImageJ.</description>

@@ -24,6 +24,8 @@
 
 // Created on 23 November 2004, 22:56
 
+import ij.IJ;
+
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -84,7 +86,8 @@ public class WritePCXML {
 			final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 			while (it.hasNext()) {
 				final PlantCntrMarkerVector markerVector = it.next();
-				final int type = markerVector.getType();
+				final int type = markerVector.getType()-1;
+				IJ.log("marker type " + Integer.toString(type));
 				final String cntrName = cntrNames.get(type);
 				out.write("     <Marker_Type>\r\n");
 				out.write("         <Type>" + type + "</Type>\r\n");
