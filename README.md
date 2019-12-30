@@ -31,6 +31,10 @@ Delete any old versions that you have in the Fiji plugins folder.  Then follow t
     1. Press the "Measure" button to create a spreadsheet of the info.  Cut and paste into an excel spreadsheet.
     2. Press the "Record" button to tally the number of observations of each category.
     2. Press the "Save Markers" to save your results to an xml file.
+11. To delete marker:
+    1. Choose the category that contains markers you want to delete.
+    2. Check `Delete Mode`.
+    3. Double click on the image.  The marker closest to where you double click will be deleted.
 
 ### Custom Category Labels
 

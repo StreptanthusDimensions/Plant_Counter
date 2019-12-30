@@ -48,7 +48,7 @@ public class PlantCntrNames {
     }
     
     public void fill() { //Fill from file or create default names
-        if (nameFile.exists()) {
+        if (nameFile.exists()) { // Read names from file
             try {
                 String line = null;
                 BufferedReader br = new BufferedReader(new FileReader(nameFile));

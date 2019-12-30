@@ -74,7 +74,7 @@ public class PlantCntrMarkerVector extends Vector<PlantCntrMarker> {
 	{
 		final Vector<PlantCntrMarker> v = new Vector<PlantCntrMarker>();
 		final ListIterator<PlantCntrMarker> it = this.listIterator();
-		while (it.hasNext()) {
+		while (it.hasNext()) { // Create a vector of all markers on the current slice
 			final PlantCntrMarker m = it.next();
 			if (m.getZ() == sliceIndex) {
 				v.add(m);
