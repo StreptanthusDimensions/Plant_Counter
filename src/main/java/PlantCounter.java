@@ -809,7 +809,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			for (int i = 0; i < cntrNames.getSize(); i++) {
 				final JRadioButton button = dynRadioVector.get(i);
 				radioGrp.remove(button);
-				button.setText(cntrNames.get(i));
+				button.setText((i+1) + "_" + cntrNames.get(i));
 				radioGrp.add(button);
 			}
 			final JRadioButton butt = dynRadioVector.get(index);
