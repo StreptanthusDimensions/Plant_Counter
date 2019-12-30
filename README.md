@@ -22,7 +22,7 @@ Delete any old versions that you have in the Fiji plugins folder.  Then follow t
 2. Start the plugin.  From the menu bar: `Plugins > Analyze > Plant Counter > Plant Counter`
 3. Click `Initialize`
 4. Select the category
-5. Make sure that the rectangle tools is selected from the Fiji toolbar
+5. Make sure that the rectangle tool is selected from the Fiji toolbar
 6. Use the mouse to draw a rectangle around the structure of interest
 7. Double-click within your rectangle to record it
 8. Back to step 5 for other structures in the same category
@@ -34,7 +34,7 @@ Delete any old versions that you have in the Fiji plugins folder.  Then follow t
 
 ### Custom Category Labels
 
-* After your open the plugin for the first time, a file `.PlantCounterNames.txt` will be created in your home directory (note: this will be a hidden file on Mac and Linux).
+* After you open the plugin for the first time, a file `.PlantCounterNames.txt` will be created in your home directory (note: this will be a hidden file on Mac and Linux).
 * Edit this file to create custom category labels.  One label per line.
 * Restart the plug-in and voila!
 * Custom names are saved in the xml
@@ -50,6 +50,7 @@ Please create an [issue](https://github.com/StreptanthusDimensions/Plant_Counter
 
 ### Release notes
 
+* v0.13b: Fix writexml bug
 * v0.1.3a: custom category names
 * v0.1.2: image dimension (in pixels) is now included in measurements table and xml file
 * V0.1.1a: Attempt to fix writexml error that some users are having.   
