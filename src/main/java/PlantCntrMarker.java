@@ -97,5 +97,9 @@ public class PlantCntrMarker {
 	public void setRect(final Rectangle rect) {
 		this.rect = rect;
 	}
+	
+	public Rectangle getRect() {
+		return rect;
+	}
 
 }

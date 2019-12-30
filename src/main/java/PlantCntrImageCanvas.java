@@ -137,11 +137,15 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	private Rectangle srcRect = new Rectangle(0, 0, 0, 0);
 
 	@Override
-	public void paint(final Graphics g) {
+	public void paint(final Graphics g) { // draws markers on image
 		super.paint(g);
 		srcRect = getSrcRect();
 		double xM = 0;
 		double yM = 0;
+		double BoxX = 0;
+		double BoxY =0;
+		double BoxW = 0;
+		double BoxH = 0;
 
 		final Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(1f));
@@ -159,10 +163,19 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				if (sameSlice || showAll) {
 					xM = ((m.getX() - srcRect.x) * magnification);
 					yM = ((m.getY() - srcRect.y) * magnification);
-					if (sameSlice) g2.fillOval((int) xM - 2, (int) yM - 2, 4, 4);
-					else g2.drawOval((int) xM - 2, (int) yM - 2, 4, 4);
+					// if (sameSlice) g2.fillOval((int) xM - 2, (int) yM - 2, 4, 4);
+					// else g2.drawOval((int) xM - 2, (int) yM - 2, 4, 4);
+					BoxX = m.getBoxX() * magnification;
+					BoxY = m.getBoxY() * magnification;
+					BoxW = m.getBoxW() * magnification;
+					BoxH = m.getBoxH() * magnification;
+					
+					g2.drawRect((int) BoxX,
+					 			(int) BoxY,
+								(int) BoxW,
+								(int) BoxH);
 					if (showNumbers) g2.drawString(Integer.toString(typeID),
-						(int) xM + 3, (int) yM - 3);
+						(int) xM, (int) yM);
 				}
 			}
 		}
