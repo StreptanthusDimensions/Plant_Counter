@@ -97,7 +97,6 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				currentMarkerVector.addMarker(m);
 			}
 			else if (delmode){
-				IJ.error("delmode");
 				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
 				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
 				final PlantCntrMarker m =
@@ -106,7 +105,6 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				currentMarkerVector.remove(m);
 			}
 			else if (recatmode){
-				IJ.error("recatmode");
 				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
 				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
 				final PlantCntrMarker m =

@@ -751,7 +751,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	public void itemStateChanged(final ItemEvent e) {
 		if (e.getItem().equals(delCheck)) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
-				IJ.error("changing to del Mode");
 				ic.setDelmode(true);
 				ic.setRecatmode(false);
 				recatCheck.setSelected(false);
@@ -762,7 +761,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		}
 		else if (e.getItem().equals(recatCheck)) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
-				IJ.error("changing to recat mode");
 				ic.setRecatmode(true);
 				ic.setDelmode(false);
 				delCheck.setSelected(false);
@@ -934,7 +932,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				radioGrp.remove(button);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				radioGrp.add(button);
-				recatButtonPanel.add(button);
 			}
 			
 			for (int i = 0; i < cntrNames.getSize(); i++) {

@@ -6,9 +6,9 @@ This plugin is based on the [Cell Counter](https://github.com/fiji/Cell_Counter)
 
 ### Installation
 
-Latest version is 0.1.3b
+Latest version is 0.1.4a
 
-[Download](https://github.com/StreptanthusDimensions/Plant_Counter/raw/master/target/Plant_Counter-0.1.3b.jar) the file `Plant_Counter-x.y.jar` from the `target` directory and place it in the plugins folder of Fiji.  Restart Fiji.
+[Download](https://github.com/StreptanthusDimensions/Plant_Counter/raw/master/target/Plant_Counter-0.1.4a.jar) the file `Plant_Counter-x.y.jar` from the `target` directory and place it in the plugins folder of Fiji.  Restart Fiji.
 
 (On a mac you can find the plugins folder by right-clicking (Or ctrl-clicking) on the Fiji application in the Finder and choosing `Show Package Contents`)
 
@@ -35,6 +35,11 @@ Delete any old versions that you have in the Fiji plugins folder.  Then follow t
     1. Choose the category that contains markers you want to delete.
     2. Check `Delete Mode`.
     3. Double click on the image.  The marker closest to where you double click will be deleted.
+11. To change a marker category:
+    1. Choose the category that contains markers you want to delete.
+    2. Choose the category that you want to change to.
+    2. Check `Recat Mode`.
+    3. Double click on the image.  The marker closest to where you double click will be recategorized.
 
 ### Custom Category Labels
 
@@ -54,7 +59,8 @@ Please create an [issue](https://github.com/StreptanthusDimensions/Plant_Counter
 
 ### Release notes
 
-* v0.13b: Fix writexml bug
+* v0.1.4a: Add option to draw bounding box.  Add option to recategorize markers.
+* v0.1.3b: Fix writexml bug
 * v0.1.3a: custom category names
 * v0.1.2: image dimension (in pixels) is now included in measurements table and xml file
 * V0.1.1a: Attempt to fix writexml error that some users are having.   
