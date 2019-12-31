@@ -79,6 +79,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private static final String RESULTS = "Results";
 	private static final String DELETE = "Delete";
 	private static final String DELMODE = "Delete Mode";
+	private static final String RENAMEMODE = "Rename Mode";
 	private static final String KEEPORIGINAL = "Keep Original";
 	private static final String SHOWNUMBERS = "Show Numbers";
 	private static final String SHOWBOXES = "Show Boxes";
@@ -104,6 +105,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private JPanel statButtonPanel;
 	private JPanel dynTxtPanel;
 	private JCheckBox delCheck;
+	private JCheckBox renameCheck;
 	private JCheckBox newCheck;
 	private JCheckBox numbersCheck;
 	private JCheckBox boxesCheck;
@@ -310,6 +312,20 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		delCheck.setEnabled(false);
 		gb.setConstraints(delCheck, gbc);
 		statButtonPanel.add(delCheck);
+		
+		gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 0;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		renameCheck = new JCheckBox(RENAMEMODE);
+		renameCheck
+			.setToolTipText("When selected\nclick on the marker\nyou want to rename");
+		renameCheck.setSelected(false);
+		renameCheck.addItemListener(this);
+		renameCheck.setEnabled(false);
+		gb.setConstraints(renameCheck, gbc);
+		statButtonPanel.add(renameCheck);
 
 		gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -560,6 +576,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			img.close();
 		}
 		delCheck.setEnabled(true);
+		renameCheck.setEnabled(true);
 		numbersCheck.setEnabled(true);
 		boxesCheck.setEnabled(true);
 		showAllCheck.setSelected(false);
@@ -676,6 +693,16 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		if (e.getItem().equals(delCheck)) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
 				ic.setDelmode(true);
+				ic.setRenamemode(false);
+			}
+			else {
+				ic.setDelmode(false);
+			}
+		}
+		else if (e.getItem().equals(renameCheck)) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				ic.setRenamemode(true);
+				ic.setDelmode(false);
 			}
 			else {
 				ic.setDelmode(false);

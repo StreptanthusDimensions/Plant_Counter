@@ -57,6 +57,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	private final PlantCounter cc;
 	private final ImagePlus img;
 	private boolean delmode = false;
+	private boolean renamemode = false;
 	private boolean showNumbers = true;
 	private boolean showBoxes = true;
 	private boolean showAll = false;
@@ -327,6 +328,14 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 
 	public void setDelmode(final boolean delmode) {
 		this.delmode = delmode;
+	}
+	
+	public boolean isRenamemode() {
+		return renamemode;
+	}
+
+	public void setRenamemode(final boolean Renamemode) {
+		this.renamemode = renamemode;
 	}
 
 	public boolean isShowNumbers() {
