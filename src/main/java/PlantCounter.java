@@ -77,7 +77,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private static final String INITIALIZE = "Initialize";
 	private static final String OPTIONS = "Options";
 	private static final String RESULTS = "Results";
-	private static final String DELETE = "Delete";
+	private static final String DELETE = "Delete Last";
 	private static final String DELMODE = "Delete Mode";
 	private static final String RECATMODE = "Recat Mode";
 	private static final String KEEPORIGINAL = "Keep Original";
@@ -96,6 +96,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 	private Vector<PlantCntrMarkerVector> typeVector;
 	private Vector<JRadioButton> dynRadioVector;
+	private Vector<JRadioButton> recatRadioVector;
 	private final Vector<JTextField> txtFieldVector;
 	private PlantCntrMarkerVector markerVector;
 	private PlantCntrMarkerVector currentMarkerVector;
@@ -150,6 +151,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		typeVector = new Vector<PlantCntrMarkerVector>();
 		txtFieldVector = new Vector<JTextField>();
 		dynRadioVector = new Vector<JRadioButton>();
+		recatRadioVector = new Vector<JRadioButton>();
 		initGUI();
 		populateTxtFields();
 		instance = this;
@@ -552,7 +554,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		final JRadioButton jrButton = new JRadioButton(id + "_" + cntrName);
 		jrButton.setActionCommand(RECAT_COMMAND_PREFIX + id);
 		jrButton.addActionListener(this);
-		// dynRadioVector.add(jrButton); // maybe not needed?  I think this is where the count is kept
+		recatRadioVector.add(jrButton); 
 		//recatGrp.add(jrButton); //check this
 		return jrButton;
 	}
@@ -919,12 +921,28 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
+			while (recatRadioVector.size() > typeVector.size()) {
+				if (recatRadioVector.size() > 1) {
+					final JRadioButton rbutton = recatRadioVector.lastElement();
+					recatButtonPanel.remove(rbutton);
+					recatRadioVector.removeElementAt(recatRadioVector.size() - 1);
+				}
+			}
+			
 			for (int i = 0; i < cntrNames.getSize(); i++) {
 				final JRadioButton button = dynRadioVector.get(i);
 				radioGrp.remove(button);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				radioGrp.add(button);
+				recatButtonPanel.add(button);
 			}
+			
+			for (int i = 0; i < cntrNames.getSize(); i++) {
+				final JRadioButton button = recatRadioVector.get(i);
+				button.setText((i+1) + "_" + cntrNames.get(i));
+				recatButtonPanel.add(button);
+			}
+			
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);
 		}
