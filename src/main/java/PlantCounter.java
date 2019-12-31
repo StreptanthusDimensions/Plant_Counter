@@ -81,6 +81,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private static final String DELMODE = "Delete Mode";
 	private static final String KEEPORIGINAL = "Keep Original";
 	private static final String SHOWNUMBERS = "Show Numbers";
+	private static final String SHOWBOXES = "Show Boxes";
 	private static final String SHOWALL = "Show All";
 	private static final String RESET = "Reset";
 	private static final String EXPORTMARKERS = "Save Markers";
@@ -105,6 +106,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private JCheckBox delCheck;
 	private JCheckBox newCheck;
 	private JCheckBox numbersCheck;
+	private JCheckBox boxesCheck;
 	private JCheckBox showAllCheck;
 	private ButtonGroup radioGrp;
 	private JSeparator separator;
@@ -374,6 +376,19 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		numbersCheck.addItemListener(this);
 		gb.setConstraints(numbersCheck, gbc);
 		statButtonPanel.add(numbersCheck);
+		
+		gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 0;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		boxesCheck = new JCheckBox(SHOWBOXES);
+		boxesCheck.setToolTipText("When selected, bounding boxes are shown");
+		boxesCheck.setSelected(true);
+		boxesCheck.setEnabled(false);
+		boxesCheck.addItemListener(this);
+		gb.setConstraints(boxesCheck, gbc);
+		statButtonPanel.add(boxesCheck);
 
 		showAllCheck = new JCheckBox(SHOWALL);
 		showAllCheck.setToolTipText("When selected, all stack markers are shown");
@@ -546,6 +561,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		}
 		delCheck.setEnabled(true);
 		numbersCheck.setEnabled(true);
+		boxesCheck.setEnabled(true);
 		showAllCheck.setSelected(false);
 		if (counterImg.getStackSize() > 1) showAllCheck.setEnabled(true);
 		//addButton.setEnabled(true);
@@ -679,6 +695,15 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			}
 			else {
 				ic.setShowNumbers(false);
+			}
+			ic.repaint();
+		}
+		else if (e.getItem().equals(boxesCheck)) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				ic.setShowBoxes(true);
+			}
+			else {
+				ic.setShowBoxes(false);
 			}
 			ic.repaint();
 		}

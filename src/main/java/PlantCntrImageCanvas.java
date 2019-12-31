@@ -58,6 +58,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	private final ImagePlus img;
 	private boolean delmode = false;
 	private boolean showNumbers = true;
+	private boolean showBoxes = true;
 	private boolean showAll = false;
 	private final Font font = new Font("SansSerif", Font.PLAIN, 10);
 
@@ -163,19 +164,26 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				if (sameSlice || showAll) {
 					xM = ((m.getX() - srcRect.x) * magnification);
 					yM = ((m.getY() - srcRect.y) * magnification);
-					// if (sameSlice) g2.fillOval((int) xM - 2, (int) yM - 2, 4, 4);
-					// else g2.drawOval((int) xM - 2, (int) yM - 2, 4, 4);
-					BoxX = m.getBoxX() * magnification;
-					BoxY = m.getBoxY() * magnification;
-					BoxW = m.getBoxW() * magnification;
-					BoxH = m.getBoxH() * magnification;
-					
-					g2.drawRect((int) BoxX,
-					 			(int) BoxY,
-								(int) BoxW,
-								(int) BoxH);
-					if (showNumbers) g2.drawString(Integer.toString(typeID),
-						(int) xM, (int) yM);
+					if (showBoxes) {
+						BoxX = m.getBoxX() * magnification;
+						BoxY = m.getBoxY() * magnification;
+						BoxW = m.getBoxW() * magnification;
+						BoxH = m.getBoxH() * magnification;
+						g2.drawRect((int) BoxX,
+									(int) BoxY,
+									(int) BoxW,
+									(int) BoxH);
+									
+						if (showNumbers) g2.drawString(Integer.toString(typeID),
+										(int) xM, (int) yM);
+					}
+					else {
+						if (sameSlice) g2.fillOval((int) xM - 2, (int) yM - 2, 4, 4);
+						else g2.drawOval((int) xM - 2, (int) yM - 2, 4, 4);
+						
+						if (showNumbers) g2.drawString(Integer.toString(typeID),
+							(int) xM + 3, (int) yM -3);
+					}
 				}
 			}
 		}
@@ -327,6 +335,14 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 
 	public void setShowNumbers(final boolean showNumbers) {
 		this.showNumbers = showNumbers;
+	}
+	
+	public boolean isShowBoxes() {
+		return showBoxes;
+	}
+
+	public void setShowBoxes(final boolean showBoxes) {
+		this.showBoxes = showBoxes;
 	}
 
 	public void setShowAll(final boolean showAll) {
