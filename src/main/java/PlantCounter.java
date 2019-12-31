@@ -79,7 +79,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private static final String RESULTS = "Results";
 	private static final String DELETE = "Delete";
 	private static final String DELMODE = "Delete Mode";
-	private static final String RENAMEMODE = "Rename Mode";
+	private static final String RECATMODE = "Recat Mode";
 	private static final String KEEPORIGINAL = "Keep Original";
 	private static final String SHOWNUMBERS = "Show Numbers";
 	private static final String SHOWBOXES = "Show Boxes";
@@ -102,10 +102,11 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 	private JPanel dynPanel;
 	private JPanel dynButtonPanel;
+	private JPanel recatButtonPanel;
 	private JPanel statButtonPanel;
 	private JPanel dynTxtPanel;
 	private JCheckBox delCheck;
-	private JCheckBox renameCheck;
+	private JCheckBox recatCheck;
 	private JCheckBox newCheck;
 	private JCheckBox numbersCheck;
 	private JCheckBox boxesCheck;
@@ -181,9 +182,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		dynPanel.setBorder(BorderFactory.createTitledBorder("Counters"));
 		dynPanel.setLayout(gb);
 
-		// this panel keeps the radiobuttons
+		// this panel keeps the radiobuttons for categories
 		dynButtonPanel = new JPanel();
 		dynButtonPanel.setLayout(dynGrid);
+		
+		// this panel keeps the radiobuttons for renaming
+		recatButtonPanel = new JPanel();
+		recatButtonPanel.setLayout(dynGrid);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -318,14 +323,14 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		renameCheck = new JCheckBox(RENAMEMODE);
-		renameCheck
-			.setToolTipText("When selected\nclick on the marker\nyou want to rename");
-		renameCheck.setSelected(false);
-		renameCheck.addItemListener(this);
-		renameCheck.setEnabled(false);
-		gb.setConstraints(renameCheck, gbc);
-		statButtonPanel.add(renameCheck);
+		recatCheck = new JCheckBox(RECATMODE);
+		recatCheck
+			.setToolTipText("When selected\nclick on the marker\nyou want to recat");
+		recatCheck.setSelected(false);
+		recatCheck.addItemListener(this);
+		recatCheck.setEnabled(false);
+		gb.setConstraints(recatCheck, gbc);
+		statButtonPanel.add(recatCheck);
 
 		gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -576,7 +581,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			img.close();
 		}
 		delCheck.setEnabled(true);
-		renameCheck.setEnabled(true);
+		recatCheck.setEnabled(true);
 		numbersCheck.setEnabled(true);
 		boxesCheck.setEnabled(true);
 		showAllCheck.setSelected(false);
@@ -693,19 +698,21 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		if (e.getItem().equals(delCheck)) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
 				ic.setDelmode(true);
-				ic.setRenamemode(false);
+				ic.setRecatmode(false);
+				recatCheck.setSelected(false);
 			}
 			else {
 				ic.setDelmode(false);
 			}
 		}
-		else if (e.getItem().equals(renameCheck)) {
+		else if (e.getItem().equals(recatCheck)) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
-				ic.setRenamemode(true);
+				ic.setRecatmode(true);
 				ic.setDelmode(false);
+				delCheck.setSelected(false);
 			}
 			else {
-				ic.setDelmode(false);
+				ic.setRecatmode(false);
 			}
 		}
 		else if (e.getItem().equals(newCheck)) {

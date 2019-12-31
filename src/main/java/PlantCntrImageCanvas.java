@@ -57,7 +57,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 	private final PlantCounter cc;
 	private final ImagePlus img;
 	private boolean delmode = false;
-	private boolean renamemode = false;
+	private boolean recatmode = false;
 	private boolean showNumbers = true;
 	private boolean showBoxes = true;
 	private boolean showAll = false;
@@ -91,17 +91,27 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 			}
 			
 			Rectangle r = img.getRoi().getBounds();
-			if (!delmode) {
+			if (!delmode & !recatmode) {
 				final PlantCntrMarker m = new PlantCntrMarker(r, img.getCurrentSlice());
 				currentMarkerVector.addMarker(m);
 			}
-			else {
+			else if (delmode){
 				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
 				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
 				final PlantCntrMarker m =
 					currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
 						.getCurrentSlice());
 				currentMarkerVector.remove(m);
+			}
+			else if (recatmode){
+				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
+				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
+				final PlantCntrMarker m =
+					currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
+						.getCurrentSlice());
+				currentMarkerVector.remove(m);
+				// add to new MarkerVector...
+				
 			}
 			repaint();
 			cc.populateTxtFields();
@@ -330,12 +340,12 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		this.delmode = delmode;
 	}
 	
-	public boolean isRenamemode() {
-		return renamemode;
+	public boolean isRecatmode() {
+		return recatmode;
 	}
 
-	public void setRenamemode(final boolean Renamemode) {
-		this.renamemode = renamemode;
+	public void setRecatmode(final boolean Recatmode) {
+		this.recatmode = recatmode;
 	}
 
 	public boolean isShowNumbers() {
