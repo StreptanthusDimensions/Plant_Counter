@@ -99,8 +99,10 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private final Vector<JTextField> txtFieldVector;
 	private PlantCntrMarkerVector markerVector;
 	private PlantCntrMarkerVector currentMarkerVector;
+	private PlantCntrMarkerVector recatMarkerVector;
 	private PlantCntrNames cntrNames;
 	private int currentMarkerIndex;
+	private int recatMarkerIndex;
 
 	private JPanel dynPanel;
 	private JPanel dynButtonPanel;
@@ -702,6 +704,17 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			currentMarkerVector = typeVector.get(currentMarkerIndex);
 			ic.setCurrentMarkerVector(currentMarkerVector);
 		}
+		else if (command.startsWith(RECAT_COMMAND_PREFIX)) { // RECAT
+			recatMarkerIndex =
+				Integer.parseInt(command.substring(RECAT_COMMAND_PREFIX.length())) - 1;
+			if (ic == null) {
+				IJ.error("You need to initialize first");
+				return;
+			}
+			// ic.setDelmode(false); // just in case
+			recatMarkerVector = typeVector.get(recatMarkerIndex);
+			ic.setRecatMarkerVector(recatMarkerVector);
+		}
 		else if (command.equals(DELETE)) {
 			ic.removeLastMarker();
 		}
@@ -736,6 +749,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	public void itemStateChanged(final ItemEvent e) {
 		if (e.getItem().equals(delCheck)) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
+				IJ.error("changing to del Mode");
 				ic.setDelmode(true);
 				ic.setRecatmode(false);
 				recatCheck.setSelected(false);
@@ -746,6 +760,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		}
 		else if (e.getItem().equals(recatCheck)) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
+				IJ.error("changing to recat mode");
 				ic.setRecatmode(true);
 				ic.setDelmode(false);
 				delCheck.setSelected(false);

@@ -53,6 +53,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 
 	private Vector<PlantCntrMarkerVector> typeVector;
 	private PlantCntrMarkerVector currentMarkerVector;
+	private PlantCntrMarkerVector recatMarkerVector;
 	private PlantCntrNames cntrNames;
 	private final PlantCounter cc;
 	private final ImagePlus img;
@@ -96,6 +97,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				currentMarkerVector.addMarker(m);
 			}
 			else if (delmode){
+				IJ.error("delmode");
 				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
 				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
 				final PlantCntrMarker m =
@@ -104,6 +106,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				currentMarkerVector.remove(m);
 			}
 			else if (recatmode){
+				IJ.error("recatmode");
 				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
 				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
 				final PlantCntrMarker m =
@@ -111,7 +114,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 						.getCurrentSlice());
 				currentMarkerVector.remove(m);
 				// add to new MarkerVector...
-				
+				recatMarkerVector.addMarker(m);
 			}
 			repaint();
 			cc.populateTxtFields();
@@ -328,6 +331,16 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		this.currentMarkerVector = currentMarkerVector;
 	}
 	
+	public PlantCntrMarkerVector getRecatMarkerVector() {
+		return recatMarkerVector;
+	}
+
+	public void setRecatMarkerVector(
+		final PlantCntrMarkerVector recatMarkerVector)
+	{
+		this.recatMarkerVector = recatMarkerVector;
+	}
+	
 	public void setCntrNames(final PlantCntrNames cntrNames) {
 		this.cntrNames = cntrNames;
 	}
@@ -344,7 +357,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		return recatmode;
 	}
 
-	public void setRecatmode(final boolean Recatmode) {
+	public void setRecatmode(final boolean recatmode) {
 		this.recatmode = recatmode;
 	}
 
