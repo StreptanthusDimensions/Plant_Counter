@@ -91,6 +91,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private static final String MEASURE = "Measure...";
 
 	private static final String TYPE_COMMAND_PREFIX = "type";
+	private static final String RECAT_COMMAND_PREFIX = "recat";
+
 
 	private Vector<PlantCntrMarkerVector> typeVector;
 	private Vector<JRadioButton> dynRadioVector;
@@ -102,6 +104,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 	private JPanel dynPanel;
 	private JPanel dynButtonPanel;
+	private JPanel recatPanel;
 	private JPanel recatButtonPanel;
 	private JPanel statButtonPanel;
 	private JPanel dynTxtPanel;
@@ -172,12 +175,12 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		final GridBagLayout gb = new GridBagLayout();
 		getContentPane().setLayout(gb);
 
-		radioGrp = new ButtonGroup();// to group the radiobuttons
-
+		radioGrp = new ButtonGroup();// to group the radiobuttons for categories
+		
 		dynGrid = new GridLayout(cntrNames.getSize(), 1);
 		dynGrid.setVgap(2);
 
-		// this panel will keep the dynamic GUI parts
+		// this panel will keep the category selection and counter GUI parts
 		dynPanel = new JPanel();
 		dynPanel.setBorder(BorderFactory.createTitledBorder("Counters"));
 		dynPanel.setLayout(gb);
@@ -185,10 +188,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		// this panel keeps the radiobuttons for categories
 		dynButtonPanel = new JPanel();
 		dynButtonPanel.setLayout(dynGrid);
-		
-		// this panel keeps the radiobuttons for renaming
-		recatButtonPanel = new JPanel();
-		recatButtonPanel.setLayout(dynGrid);
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -207,6 +206,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		gb.setConstraints(dynTxtPanel, gbc);
 		dynPanel.add(dynTxtPanel);
 
+		// add dynButtons and text together into this panel
 		gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.fill = GridBagConstraints.NONE;
@@ -476,6 +476,35 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		gbc.ipadx = 5;
 		gb.setConstraints(statButtonPanel, gbc);
 		getContentPane().add(statButtonPanel);
+		
+		// Add dynamic panel for recategorization 
+				
+		// this panel will keep the recategorization panel and allow it to be shown dynamically
+		recatPanel = new JPanel();
+		recatPanel.setBorder(BorderFactory.createTitledBorder("Recategorize to:"));
+		recatPanel.setLayout(gb);
+		
+		// this panel keeps the radiobuttons for recategorizing
+		recatButtonPanel = new JPanel();
+		recatButtonPanel.setLayout(dynGrid);
+
+		gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.ipadx = 25;
+		gb.setConstraints(recatButtonPanel, gbc);
+		recatPanel.add(recatButtonPanel);
+		
+		gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.ipadx = 5;
+		gb.setConstraints(recatPanel, gbc);
+		getContentPane().add(recatPanel);
+
+		for (int i = 1; i <= cntrNames.getSize(); i++) {
+			recatButtonPanel.add(makeRecatRadioButton(i, cntrNames.get(i-1)));
+		}
 
 		final Runnable runner = new GUIShower(this);
 		EventQueue.invokeLater(runner);
@@ -514,6 +543,15 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		markerVector = new PlantCntrMarkerVector(id);
 		typeVector.add(markerVector);
 		dynTxtPanel.add(makeDynamicTextArea());
+		return jrButton;
+	}
+	
+	private JRadioButton makeRecatRadioButton(final int id, String cntrName) {
+		final JRadioButton jrButton = new JRadioButton(id + "_" + cntrName);
+		jrButton.setActionCommand(RECAT_COMMAND_PREFIX + id);
+		jrButton.addActionListener(this);
+		// dynRadioVector.add(jrButton); // maybe not needed?  I think this is where the count is kept
+		//recatGrp.add(jrButton); //check this
 		return jrButton;
 	}
 
@@ -601,6 +639,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		dynPanel.validate();
 		dynButtonPanel.validate();
 		dynTxtPanel.validate();
+		recatPanel.validate();
 		statButtonPanel.validate();
 		validate();
 		pack();
