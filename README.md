@@ -6,9 +6,9 @@ This plugin is based on the [Cell Counter](https://github.com/fiji/Cell_Counter)
 
 ### Installation
 
-Latest version is 0.1.4a
+Latest version is 0.1.4b
 
-[Download](https://github.com/StreptanthusDimensions/Plant_Counter/raw/master/target/Plant_Counter-0.1.4a.jar) the file `Plant_Counter-x.y.jar` from the `target` directory and place it in the plugins folder of Fiji.  Restart Fiji.
+[Download](https://github.com/StreptanthusDimensions/Plant_Counter/raw/master/target/Plant_Counter-0.1.4b.jar) the file `Plant_Counter-x.y.jar` from the `target` directory and place it in the plugins folder of Fiji.  Restart Fiji.
 
 (On a mac you can find the plugins folder by right-clicking (Or ctrl-clicking) on the Fiji application in the Finder and choosing `Show Package Contents`)
 
@@ -59,6 +59,7 @@ Please create an [issue](https://github.com/StreptanthusDimensions/Plant_Counter
 
 ### Release notes
 
+* v0.1.4b: Must click within bounding box for deletion or recategorization to work.
 * v0.1.4a: Add option to draw bounding box.  Add option to recategorize markers.
 * v0.1.3b: Fix writexml bug
 * v0.1.3a: custom category names

@@ -102,7 +102,10 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				final PlantCntrMarker m =
 					currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
 						.getCurrentSlice());
+				
+				if (m.inBoundingBox(x, y)) { //confirm that selected object is correct
 				currentMarkerVector.remove(m);
+				}
 			}
 			else if (recatmode){
 				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
@@ -110,9 +113,11 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				final PlantCntrMarker m =
 					currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
 						.getCurrentSlice());
-				currentMarkerVector.remove(m);
-				// add to new MarkerVector...
-				recatMarkerVector.addMarker(m);
+				
+				if (m.inBoundingBox(x, y)) { //confirm that selected object is correct
+					currentMarkerVector.remove(m);
+					recatMarkerVector.addMarker(m);
+				}
 			}
 			repaint();
 			cc.populateTxtFields();

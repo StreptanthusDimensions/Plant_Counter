@@ -101,5 +101,9 @@ public class PlantCntrMarker {
 	public Rectangle getRect() {
 		return rect;
 	}
+	
+	public boolean inBoundingBox(final int x, final int y) {
+		return rect.contains(x, y);
+	}
 
 }
