@@ -893,11 +893,16 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		final ReadPCXML rxml = new ReadPCXML(filePath);
 		final String storedfilename =
 			rxml.readImgProperties(ReadPCXML.IMAGE_FILE_PATH);
+		IJ.log("A");
 		if (storedfilename.equals(img.getTitle())) {
+			IJ.log("get new positions");
 			newPositions = rxml.getNewPositions(cntrNames);
+			IJ.log("get cntrNames");
 			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names
+			IJ.log("get loadedvector");
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
 			typeVector = loadedvector;
+			IJ.log("typeVector length: " + Integer.toString(typeVector.size()));
 			ic.setTypeVector(typeVector);
 			final int index =
 				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
@@ -919,7 +924,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 					txtFieldVector.removeElementAt(txtFieldVector.size() - 1);
 				}
 			}
-			
+						
 			while (recatRadioVector.size() > typeVector.size()) {
 				if (recatRadioVector.size() > 1) {
 					final JRadioButton rbutton = recatRadioVector.lastElement();
@@ -928,6 +933,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
+			
 			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = dynRadioVector.get(i);
 				radioGrp.remove(button);
@@ -935,11 +941,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				radioGrp.add(button);
 			}
 			
+			
 			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = recatRadioVector.get(i);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				recatButtonPanel.add(button);
 			}
+			
 			
 			if (cntrNames.getSize() > dynRadioVector.size()) { //add buttons!
 				for (int i = dynRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
@@ -947,8 +955,10 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
+			
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);
+			
 		}
 		else {
 			IJ.error("These Markers do not belong to the current image");

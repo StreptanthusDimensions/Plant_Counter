@@ -97,7 +97,15 @@ public class ReadPCXML {
 	public Vector<PlantCntrMarkerVector> readMarkerData(Vector<Integer> newPositions) {
 		final Vector<PlantCntrMarkerVector> typeVector =
 			new Vector<PlantCntrMarkerVector>();
-		typeVector.setSize(Collections.max(newPositions)+1);
+		
+		//populate the new marker vector with empties	
+		IJ.log("before the loop");
+		IJ.log("max position " + Integer.toString(Collections.max(newPositions)));
+		for (int id = 1; id <= (Collections.max(newPositions)+1) ; id++ ) {
+			IJ.log("id " + Integer.toString(id));
+			PlantCntrMarkerVector markerVector = new PlantCntrMarkerVector(id);
+			typeVector.add(markerVector);
+		}
 
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
@@ -138,7 +146,7 @@ public class ReadPCXML {
 				marker.setZ(Integer.parseInt(readValue(markerZNodeList, 0)));
 				markerVector.add(marker);
 			}
-			typeVector.add(newPositions.get(i), markerVector);
+			typeVector.set(newPositions.get(i), markerVector);
 		}
 		return typeVector;
 	}
