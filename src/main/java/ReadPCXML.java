@@ -28,6 +28,7 @@ import ij.IJ;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
+import java.util.Collections;
 
 import java.awt.Rectangle;
 
@@ -93,9 +94,10 @@ public class ReadPCXML {
 		return null;
 	}
 
-	public Vector<PlantCntrMarkerVector> readMarkerData() {
+	public Vector<PlantCntrMarkerVector> readMarkerData(Vector<Integer> newPositions) {
 		final Vector<PlantCntrMarkerVector> typeVector =
 			new Vector<PlantCntrMarkerVector>();
+		typeVector.setSize(Collections.max(newPositions)+1);
 
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
@@ -136,12 +138,29 @@ public class ReadPCXML {
 				marker.setZ(Integer.parseInt(readValue(markerZNodeList, 0)));
 				markerVector.add(marker);
 			}
-			typeVector.add(markerVector);
+			typeVector.add(newPositions.get(i), markerVector);
 		}
 		return typeVector;
 	}
 
-	public PlantCntrNames readCntrNames() {
+	public Vector<Integer> getNewPositions(final PlantCntrNames cntrNames) {
+		// This returns a vectir that indicates where the marker vectors and names should be inserted in the current marker scheme
+		
+		Vector<Integer> newPositions = new Vector();
+		int appendPosition = cntrNames.getSize() + 1;
+		PlantCntrNames xmlCntrNames = readCntrNames();
+		for(int i = 0; i < xmlCntrNames.getSize(); i++) {
+			if(cntrNames.contains(xmlCntrNames.get(i))) {
+				newPositions.add(i, cntrNames.indexOf(xmlCntrNames.get(i)));
+			} else {
+				newPositions.add(i, appendPosition);
+				appendPosition++;
+			}
+		}
+		return newPositions;
+	}
+
+	private PlantCntrNames readCntrNames() {
 		final PlantCntrNames cntrNames = new PlantCntrNames();
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
@@ -149,6 +168,18 @@ public class ReadPCXML {
 			final NodeList nameNodeList =
 				markerTypeElement.getElementsByTagName("Name");
 			cntrNames.add(readValue(nameNodeList, 0));
+		}
+		return cntrNames;
+	}
+
+	public PlantCntrNames readCntrNames(PlantCntrNames cntrNames, final Vector<Integer> newPositions) {
+		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
+		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
+			final Element markerTypeElement = getElement(markerTypeNodeList, i);
+			final NodeList nameNodeList =
+				markerTypeElement.getElementsByTagName("Name");
+			if (!cntrNames.contains(readValue(nameNodeList, 0)))
+				cntrNames.add(newPositions.get(i), readValue(nameNodeList, 0));
 		}
 		return cntrNames;
 	}

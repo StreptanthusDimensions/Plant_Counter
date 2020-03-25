@@ -102,6 +102,22 @@ public class PlantCntrNames {
         cntrNames.add(name);
     }
     
+    public void add(int index, String name) {
+        if (index < cntrNames.size()) {
+             cntrNames.add(index, name) ;
+        } else {
+            cntrNames.add(name);
+        }
+    }
+    
+    public boolean contains(String name) {
+        return cntrNames.contains(name);
+    }
+    
+    public int indexOf(String name) {
+        return cntrNames.indexOf(name);
+    }
+    
     public void clear() { // empty it out
         cntrNames.clear();
     }

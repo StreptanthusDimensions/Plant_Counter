@@ -104,6 +104,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private PlantCntrNames cntrNames;
 	private int currentMarkerIndex;
 	private int recatMarkerIndex;
+	private Vector<Integer> newPositions;
 
 	private JPanel dynPanel;
 	private JPanel dynButtonPanel;
@@ -893,11 +894,11 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		final String storedfilename =
 			rxml.readImgProperties(ReadPCXML.IMAGE_FILE_PATH);
 		if (storedfilename.equals(img.getTitle())) {
-			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData();
+			newPositions = rxml.getNewPositions(cntrNames);
+			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names
+			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
 			typeVector = loadedvector;
 			ic.setTypeVector(typeVector);
-			cntrNames.clear(); // maybe not needed
-			cntrNames = rxml.readCntrNames();
 			final int index =
 				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
 			currentMarkerVector = typeVector.get(index);
@@ -927,17 +928,23 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
-			for (int i = 0; i < cntrNames.getSize(); i++) {
+			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = dynRadioVector.get(i);
 				radioGrp.remove(button);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				radioGrp.add(button);
 			}
 			
-			for (int i = 0; i < cntrNames.getSize(); i++) {
+			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = recatRadioVector.get(i);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				recatButtonPanel.add(button);
+			}
+			
+			if (cntrNames.getSize() > dynRadioVector.size()) { //add buttons!
+				for (int i = dynRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
+					dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i-1)));
+				}
 			}
 			
 			final JRadioButton butt = dynRadioVector.get(index);
