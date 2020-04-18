@@ -97,8 +97,17 @@ public class ReadPCXML {
 	public Vector<PlantCntrMarkerVector> readMarkerData(Vector<Integer> newPositions) {
 		final Vector<PlantCntrMarkerVector> typeVector =
 			new Vector<PlantCntrMarkerVector>();
-		typeVector.setSize(Collections.max(newPositions)+1);
-
+		
+		//fill the typeVector with empty PlantCntrMarkerVectors.
+		//This is a little klugy because some of them will be replace immediately.
+		for(int i = 0; i <= Collections.max(newPositions); i++) {
+			PlantCntrMarkerVector markerVector = new PlantCntrMarkerVector(i + 1); // +1? not sure
+			typeVector.add(markerVector);
+		}
+		
+		IJ.log("starting ReadMarkerData.  new typeVector: " + typeVector.toString());
+		
+		//now add in any marker data from xml file
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
 			final Element markerTypeElement = getElement(markerTypeNodeList, i);
@@ -138,7 +147,8 @@ public class ReadPCXML {
 				marker.setZ(Integer.parseInt(readValue(markerZNodeList, 0)));
 				markerVector.add(marker);
 			}
-			typeVector.add(newPositions.get(i), markerVector);
+			typeVector.set(newPositions.get(i), markerVector);
+			IJ.log("After adding newinfo, typeVector is: " + typeVector.toString());
 		}
 		return typeVector;
 	}

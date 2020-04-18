@@ -906,6 +906,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		if (storedfilename.equals(img.getTitle())) {
 			IJ.log("old CntrNames: " + cntrNames.getCntrNames().toString());
 			newPositions = rxml.getNewPositions(cntrNames); //shouldn't this come after getting the new names?
+			IJ.log("new Positions: " + newPositions.toString());
 			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names; working.
 			IJ.log("new CntrNames: " + cntrNames.getCntrNames().toString()); 
 			IJ.log("old typevector size: " + Integer.toString(typeVector.size()));
@@ -915,16 +916,17 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			typeVector = loadedvector;
 			IJ.log("new typevector size: " + Integer.toString(typeVector.size()));
 			IJ.log("new type vector contents: " + typeVector.toString());
+			IJ.showMessage("about to ic.setTypeVector");
 			ic.setTypeVector(typeVector);
-			final int index =
-				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
+			final int index = newPositions.get(
+				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE)));
 			IJ.log("new index: " + Integer.toString(index));
-			IJ.log("old currentMarkerVector size: " + Integer.toString(currentMarkerVector.size()));
-			IJ.log("old currentMarkerVector" + currentMarkerVector.toString()); //Null pointer error!
 			currentMarkerVector = typeVector.get(index);
 			IJ.log("currentMarkerVector size: " + Integer.toString(currentMarkerVector.size()));
 			IJ.log("currentMarkerVector" + currentMarkerVector.toString()); //Null pointer error!
+			IJ.showMessage("about to ic.set CurrentMarkerVector");
 			ic.setCurrentMarkerVector(currentMarkerVector);
+			IJ.showMessage("about to ic.setCntrNames");
 			ic.setCntrNames(cntrNames);
 
 			while (dynRadioVector.size() > typeVector.size()) {
