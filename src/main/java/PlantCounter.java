@@ -904,11 +904,15 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		final String storedfilename =
 			rxml.readImgProperties(ReadPCXML.IMAGE_FILE_PATH);
 		if (storedfilename.equals(img.getTitle())) {
-			IJ.log("old CntrNames: " + cntrNames.getCntrNames.toString());
+			IJ.log("old CntrNames: " + cntrNames.getCntrNames().toString());
 			newPositions = rxml.getNewPositions(cntrNames); //shouldn't this come after getting the new names?
-			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names
+			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names; working.
+			IJ.log("new CntrNames: " + cntrNames.getCntrNames().toString()); 
+			IJ.log("old typevector size: " + Integer.toString(typVector.size()));
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
+			IJ.log("loadedvector size: " + Integer.toString(loadedvector.size()));
 			typeVector = loadedvector;
+			IJ.log("new typevector size: " + Integer.toString(typVector.size()));
 			ic.setTypeVector(typeVector);
 			final int index =
 				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
