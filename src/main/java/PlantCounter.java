@@ -146,6 +146,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 	public PlantCounter() {
 		super("Plant Counter");
+		IJ.log("PlantCounter");
 		setResizable(false);
 		cntrNames = new PlantCntrNames();
 		cntrNames.fill();
@@ -527,11 +528,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 	void populateTxtFields() {
 		final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
+		IJ.log("populateTxtFields");
 		while (it.hasNext()) {
 			final int index = it.nextIndex();
+			IJ.log("type vector index: " + Integer.toString(index));
 			if (txtFieldVector.size() > index) {
 				final PlantCntrMarkerVector markerVector = it.next();
-				final int count = markerVector.size();
+				final int count = markerVector.size(); // null pointer error here.
 				final JTextField tArea = txtFieldVector.get(index);
 				tArea.setText("" + count);
 			}
@@ -653,6 +656,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	@Override
 	public void actionPerformed(final ActionEvent event) {
 		final String command = event.getActionCommand();
+		
+		IJ.log("actionPerformed; command: " + command);
 
 		// if (command.equals(ADD)) {
 		// 	final int i = dynRadioVector.size() + 1;
@@ -744,8 +749,12 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		else if (command.equals(MEASURE)) {
 			measure();
 		}
-		if (ic != null) ic.repaint();
-		populateTxtFields();
+		if (ic != null) {
+			IJ.log("ic not null"); 
+			ic.repaint();
+		}
+		IJ.log("about to populate test fields");
+		populateTxtFields(); // leads to null pointer exception when called
 	}
 
 	@Override
@@ -888,13 +897,15 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	public void loadMarkers() {
+		IJ.log("load markers");
 		final String filePath =
 			getFilePath(new JFrame(), "Select Marker File", OPEN);
 		final ReadPCXML rxml = new ReadPCXML(filePath);
 		final String storedfilename =
 			rxml.readImgProperties(ReadPCXML.IMAGE_FILE_PATH);
 		if (storedfilename.equals(img.getTitle())) {
-			newPositions = rxml.getNewPositions(cntrNames);
+			IJ.log("old CntrNames: " + cntrNames.getCntrNames.toString());
+			newPositions = rxml.getNewPositions(cntrNames); //shouldn't this come after getting the new names?
 			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
 			typeVector = loadedvector;
