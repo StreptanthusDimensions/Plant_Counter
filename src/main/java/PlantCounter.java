@@ -916,7 +916,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			typeVector = loadedvector;
 			IJ.log("new typevector size: " + Integer.toString(typeVector.size()));
 			IJ.log("new type vector contents: " + typeVector.toString());
-			IJ.showMessage("about to ic.setTypeVector");
 			ic.setTypeVector(typeVector);
 			final int index = newPositions.get(
 				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE)));
@@ -924,10 +923,11 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			currentMarkerVector = typeVector.get(index);
 			IJ.log("currentMarkerVector size: " + Integer.toString(currentMarkerVector.size()));
 			IJ.log("currentMarkerVector" + currentMarkerVector.toString()); //Null pointer error!
-			IJ.showMessage("about to ic.set CurrentMarkerVector");
 			ic.setCurrentMarkerVector(currentMarkerVector);
 			IJ.showMessage("about to ic.setCntrNames");
 			ic.setCntrNames(cntrNames);
+			IJ.showMessage("done with ic.setCntrNames");
+
 
 			while (dynRadioVector.size() > typeVector.size()) {
 				if (dynRadioVector.size() > 1) {
@@ -944,6 +944,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
+			IJ.showMessage("recat");
 			while (recatRadioVector.size() > typeVector.size()) {
 				if (recatRadioVector.size() > 1) {
 					final JRadioButton rbutton = recatRadioVector.lastElement();
@@ -951,7 +952,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 					recatRadioVector.removeElementAt(recatRadioVector.size() - 1);
 				}
 			}
-			
+
+			IJ.showMessage("remove add button");			
 			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = dynRadioVector.get(i);
 				radioGrp.remove(button);
@@ -959,20 +961,26 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				radioGrp.add(button);
 			}
 			
+			IJ.showMessage("remove add recat button");			
 			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = recatRadioVector.get(i);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				recatButtonPanel.add(button);
 			}
 			
+			
+			IJ.showMessage("add buttons");			
 			if (cntrNames.getSize() > dynRadioVector.size()) { //add buttons!
 				for (int i = dynRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
 					dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i-1)));
 				}
 			}
 			
+			IJ.showMessage("button set selected");			
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);
+			IJ.showMessage("done with button set selected");			
+
 		}
 		else {
 			IJ.error("These Markers do not belong to the current image");
