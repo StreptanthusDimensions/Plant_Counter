@@ -144,7 +144,7 @@ public class ReadPCXML {
 	}
 
 	public Vector<Integer> getNewPositions(final PlantCntrNames cntrNames) {
-		// This returns a vectir that indicates where the marker vectors and names should be inserted in the current marker scheme
+		// This returns a vector that indicates where the marker vectors and names should be inserted in the current marker scheme
 		
 		Vector<Integer> newPositions = new Vector();
 		int appendPosition = cntrNames.getSize() + 1;

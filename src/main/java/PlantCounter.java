@@ -909,14 +909,21 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names; working.
 			IJ.log("new CntrNames: " + cntrNames.getCntrNames().toString()); 
 			IJ.log("old typevector size: " + Integer.toString(typeVector.size()));
+			IJ.log("old type vector contents: " + typeVector.toString());
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
 			IJ.log("loadedvector size: " + Integer.toString(loadedvector.size()));
 			typeVector = loadedvector;
 			IJ.log("new typevector size: " + Integer.toString(typeVector.size()));
+			IJ.log("new type vector contents: " + typeVector.toString());
 			ic.setTypeVector(typeVector);
 			final int index =
 				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
+			IJ.log("new index: " + Integer.toString(index));
+			IJ.log("old currentMarkerVector size: " + Integer.toString(currentMarkerVector.size()));
+			IJ.log("old currentMarkerVector" + currentMarkerVector.toString()); //Null pointer error!
 			currentMarkerVector = typeVector.get(index);
+			IJ.log("currentMarkerVector size: " + Integer.toString(currentMarkerVector.size()));
+			IJ.log("currentMarkerVector" + currentMarkerVector.toString()); //Null pointer error!
 			ic.setCurrentMarkerVector(currentMarkerVector);
 			ic.setCntrNames(cntrNames);
 
