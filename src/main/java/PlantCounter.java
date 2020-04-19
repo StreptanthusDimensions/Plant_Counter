@@ -146,7 +146,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 	public PlantCounter() {
 		super("Plant Counter");
-		IJ.log("PlantCounter");
 		setResizable(false);
 		cntrNames = new PlantCntrNames();
 		cntrNames.fill();
@@ -530,9 +529,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 		while (it.hasNext()) {
 			final int index = it.nextIndex();
-			IJ.showMessage("typeVector size: " + Integer.toString(typeVector.size()) + 
-				"\ntype vector index: " + Integer.toString(index) + 
-				"\ntxtFieldVector.size: " + Integer.toString(txtFieldVector.size()));
 			if (txtFieldVector.size() > index) {
 				final PlantCntrMarkerVector markerVector = it.next();
 				final int count = markerVector.size(); // null pointer error here.
@@ -660,7 +656,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	public void actionPerformed(final ActionEvent event) {
 		final String command = event.getActionCommand();
 		
-		IJ.log("actionPerformed; command: " + command);
+		
 
 		// if (command.equals(ADD)) {
 		// 	final int i = dynRadioVector.size() + 1;
@@ -744,16 +740,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		else if (command.equals(LOADMARKERS)) {
 			if (ic == null) initializeImage();
 			loadMarkers();
-			
-			IJ.log("6 typeVector size: " + Integer.toString(typeVector.size()) +
-					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
-			
 			validateLayout();
-			
-			
-			IJ.log("7 typeVector size: " + Integer.toString(typeVector.size()) +
-					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
-			
 		}
 		else if (command.equals(EXPORTIMG)) {
 			ic.imageWithMarkers().show();
@@ -763,14 +750,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		}
 		if (ic != null) {
 			ic.repaint();
-			
-			IJ.log("8 typeVector size: " + Integer.toString(typeVector.size()) +
-					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
-			
 		}
 		populateTxtFields(); 
-		IJ.showMessage("done populate text fields");
-
 	}
 
 	@Override
@@ -913,32 +894,20 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	}
 
 	public void loadMarkers() {
-		IJ.log("load markers");
 		final String filePath =
 			getFilePath(new JFrame(), "Select Marker File", OPEN);
 		final ReadPCXML rxml = new ReadPCXML(filePath);
 		final String storedfilename =
 			rxml.readImgProperties(ReadPCXML.IMAGE_FILE_PATH);
 		if (storedfilename.equals(img.getTitle())) {
-			IJ.log("old CntrNames: " + cntrNames.getCntrNames().toString());
 			newPositions = rxml.getNewPositions(cntrNames); //shouldn't this come after getting the new names?
-			IJ.log("new Positions: " + newPositions.toString());
 			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names; working.
-			IJ.log("new CntrNames: " + cntrNames.getCntrNames().toString()); 
-			IJ.log("old typevector size: " + Integer.toString(typeVector.size()));
-			IJ.log("old type vector contents: " + typeVector.toString());
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
-			IJ.log("loadedvector size: " + Integer.toString(loadedvector.size()));
 			typeVector = loadedvector;
-			IJ.log("new typevector size: " + Integer.toString(typeVector.size()));
-			IJ.log("new type vector contents: " + typeVector.toString());
 			ic.setTypeVector(typeVector);
 			final int index = newPositions.get(
 				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE)));
-			IJ.log("new index: " + Integer.toString(index));
 			currentMarkerVector = typeVector.get(index);
-			IJ.log("currentMarkerVector size: " + Integer.toString(currentMarkerVector.size()));
-			IJ.log("currentMarkerVector" + currentMarkerVector.toString()); //Null pointer error!
 			ic.setCurrentMarkerVector(currentMarkerVector);
 			ic.setCntrNames(cntrNames);
 
@@ -979,22 +948,11 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				recatButtonPanel.add(button);
 			}
 			
-			IJ.log("5 typeVector size: " + Integer.toString(typeVector.size()) +
-					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
-			
-			// The problem is HERE
-			IJ.showMessage("cntrNames: " + cntrNames.getCntrNames().toString() +
-				"\ndynRadioVector Size: " + Integer.toString(dynRadioVector.size()));
 			if (cntrNames.getSize() > dynRadioVector.size()) { //add buttons!
 				for (int i = dynRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
 					dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i-1)));
 				}
 			}
-			
-			
-			IJ.log("5,5 typeVector size: " + Integer.toString(typeVector.size()) +
-					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
-			
 			
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);

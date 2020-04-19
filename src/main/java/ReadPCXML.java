@@ -104,9 +104,7 @@ public class ReadPCXML {
 			PlantCntrMarkerVector markerVector = new PlantCntrMarkerVector(i+1); 
 			typeVector.add(markerVector);
 		}
-		
-		IJ.log("starting ReadMarkerData.  new typeVector: " + typeVector.toString());
-		
+				
 		//now add in any marker data from xml file
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
@@ -147,12 +145,7 @@ public class ReadPCXML {
 				marker.setZ(Integer.parseInt(readValue(markerZNodeList, 0)));
 				markerVector.add(marker);
 			}
-			IJ.log("Before adding newinfo, typeVector is: " + typeVector.toString());
-			IJ.log("Before adding newinfo, typeVector size: " + 
-				Integer.toString(typeVector.size()));
-			IJ.log("About to set position: " + Integer.toString(newPositions.get(i)));			
 			typeVector.set(newPositions.get(i), markerVector);
-			IJ.log("After adding newinfo, typeVector is: " + typeVector.toString());
 		}
 		return typeVector;
 	}
