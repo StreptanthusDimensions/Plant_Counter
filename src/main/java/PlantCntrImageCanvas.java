@@ -182,8 +182,8 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 					xM = ((m.getX() - srcRect.x) * magnification);
 					yM = ((m.getY() - srcRect.y) * magnification);
 					if (showBoxes) {
-						BoxX = m.getBoxX() * magnification;
-						BoxY = m.getBoxY() * magnification;
+						BoxX = (m.getBoxX() - srcRect.x) * magnification;
+						BoxY = (m.getBoxY() - srcRect.y) * magnification;
 						BoxW = m.getBoxW() * magnification;
 						BoxH = m.getBoxH() * magnification;
 						g2.drawRect((int) BoxX,
