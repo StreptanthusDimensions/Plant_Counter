@@ -549,8 +549,10 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		jrButton.addActionListener(this);
 		dynRadioVector.add(jrButton);
 		radioGrp.add(jrButton);
-		markerVector = new PlantCntrMarkerVector(id);
-		typeVector.add(markerVector);
+		if (id > typeVector.size()) {
+			markerVector = new PlantCntrMarkerVector(id);
+			typeVector.add(markerVector);
+		}
 		dynTxtPanel.add(makeDynamicTextArea());
 		return jrButton;
 	}
@@ -981,6 +983,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
 			
 			// The problem is HERE
+			IJ.showMessage("cntrNames: " + cntrNames.getCntrNames().toString() +
+				"\ndynRadioVector Size: " + Integer.toString(dynRadioVector.size()));
 			if (cntrNames.getSize() > dynRadioVector.size()) { //add buttons!
 				for (int i = dynRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
 					dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i-1)));
