@@ -960,6 +960,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
+			//update layout for new buttons
+			dynGrid = new GridLayout(cntrNames.getSize(), 1);
+			dynGrid.setVgap(2);
+			dynButtonPanel.setLayout(dynGrid);
+			dynTxtPanel.setLayout(dynGrid);
+			recatButtonPanel.setLayout(dynGrid);
+
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);
 
