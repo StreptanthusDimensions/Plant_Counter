@@ -104,15 +104,15 @@ public class ReadPCXML {
 			PlantCntrMarkerVector markerVector = new PlantCntrMarkerVector(i+1); 
 			typeVector.add(markerVector);
 		}
-				
+								
 		//now add in any marker data from xml file
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
 			final Element markerTypeElement = getElement(markerTypeNodeList, i);
 			final NodeList typeNodeList =
-				markerTypeElement.getElementsByTagName("Type");
-			final PlantCntrMarkerVector markerVector =
-				new PlantCntrMarkerVector(Integer.parseInt(readValue(typeNodeList, 0)));
+				markerTypeElement.getElementsByTagName("Type"); // not used?
+			final PlantCntrMarkerVector markerVector = 
+				new PlantCntrMarkerVector(newPositions.get(i)+1);
 
 			final NodeList markerNodeList =
 				markerTypeElement.getElementsByTagName("Marker");
