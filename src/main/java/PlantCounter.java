@@ -531,7 +531,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			final int index = it.nextIndex();
 			if (txtFieldVector.size() > index) {
 				final PlantCntrMarkerVector markerVector = it.next();
-				final int count = markerVector.size();
+				final int count = markerVector.size(); // null pointer error here.
 				final JTextField tArea = txtFieldVector.get(index);
 				tArea.setText("" + count);
 			}
@@ -545,8 +545,10 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		jrButton.addActionListener(this);
 		dynRadioVector.add(jrButton);
 		radioGrp.add(jrButton);
-		markerVector = new PlantCntrMarkerVector(id);
-		typeVector.add(markerVector);
+		if (id > typeVector.size()) {
+			markerVector = new PlantCntrMarkerVector(id);
+			typeVector.add(markerVector);
+		}
 		dynTxtPanel.add(makeDynamicTextArea());
 		return jrButton;
 	}
@@ -653,6 +655,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	@Override
 	public void actionPerformed(final ActionEvent event) {
 		final String command = event.getActionCommand();
+		
+		
 
 		// if (command.equals(ADD)) {
 		// 	final int i = dynRadioVector.size() + 1;
@@ -744,8 +748,10 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		else if (command.equals(MEASURE)) {
 			measure();
 		}
-		if (ic != null) ic.repaint();
-		populateTxtFields();
+		if (ic != null) {
+			ic.repaint();
+		}
+		populateTxtFields(); 
 	}
 
 	@Override
@@ -894,13 +900,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		final String storedfilename =
 			rxml.readImgProperties(ReadPCXML.IMAGE_FILE_PATH);
 		if (storedfilename.equals(img.getTitle())) {
-			newPositions = rxml.getNewPositions(cntrNames);
-			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names
+			newPositions = rxml.getNewPositions(cntrNames); //shouldn't this come after getting the new names?
+			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names; working.
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
 			typeVector = loadedvector;
 			ic.setTypeVector(typeVector);
-			final int index =
-				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE));
+			final int index = newPositions.get(
+				Integer.parseInt(rxml.readImgProperties(ReadPCXML.CURRENT_TYPE)));
 			currentMarkerVector = typeVector.get(index);
 			ic.setCurrentMarkerVector(currentMarkerVector);
 			ic.setCntrNames(cntrNames);
@@ -935,7 +941,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				radioGrp.add(button);
 			}
 			
-			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
+		
+			for (int i = 0; i < cntrNames.getSize() & i < recatRadioVector.size(); i++) {
 				final JRadioButton button = recatRadioVector.get(i);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				recatButtonPanel.add(button);
@@ -947,8 +954,15 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
+			if (cntrNames.getSize() > recatRadioVector.size()) { //add buttons!
+				for (int i = recatRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
+					recatButtonPanel.add(makeRecatRadioButton(i, cntrNames.get(i-1)));
+				}
+			}
+			
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);
+
 		}
 		else {
 			IJ.error("These Markers do not belong to the current image");

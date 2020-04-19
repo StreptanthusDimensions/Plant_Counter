@@ -97,8 +97,15 @@ public class ReadPCXML {
 	public Vector<PlantCntrMarkerVector> readMarkerData(Vector<Integer> newPositions) {
 		final Vector<PlantCntrMarkerVector> typeVector =
 			new Vector<PlantCntrMarkerVector>();
-		typeVector.setSize(Collections.max(newPositions)+1);
-
+		
+		//fill the typeVector with empty PlantCntrMarkerVectors.
+		//This is a little klugy because some of them will be replace immediately.
+		for(int i = 0; i < Collections.max(newPositions)+1; i++) {
+			PlantCntrMarkerVector markerVector = new PlantCntrMarkerVector(i+1); 
+			typeVector.add(markerVector);
+		}
+				
+		//now add in any marker data from xml file
 		final NodeList markerTypeNodeList = getNodeListFromTag(doc, "Marker_Type");
 		for (int i = 0; i < markerTypeNodeList.getLength(); i++) {
 			final Element markerTypeElement = getElement(markerTypeNodeList, i);
@@ -138,16 +145,16 @@ public class ReadPCXML {
 				marker.setZ(Integer.parseInt(readValue(markerZNodeList, 0)));
 				markerVector.add(marker);
 			}
-			typeVector.add(newPositions.get(i), markerVector);
+			typeVector.set(newPositions.get(i), markerVector);
 		}
 		return typeVector;
 	}
 
 	public Vector<Integer> getNewPositions(final PlantCntrNames cntrNames) {
-		// This returns a vectir that indicates where the marker vectors and names should be inserted in the current marker scheme
+		// This returns a vector that indicates where the marker vectors and names should be inserted in the current marker scheme
 		
 		Vector<Integer> newPositions = new Vector();
-		int appendPosition = cntrNames.getSize() + 1;
+		int appendPosition = cntrNames.getSize();
 		PlantCntrNames xmlCntrNames = readCntrNames();
 		for(int i = 0; i < xmlCntrNames.getSize(); i++) {
 			if(cntrNames.contains(xmlCntrNames.get(i))) {

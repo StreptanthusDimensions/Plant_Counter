@@ -172,7 +172,7 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 		final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
 		while (it.hasNext()) {
 			final PlantCntrMarkerVector mv = it.next();
-			final int typeID = mv.getType();
+			final int typeID = mv.getType(); // null pointer here.
 			g2.setColor(mv.getColor());
 			final ListIterator<PlantCntrMarker> mit = mv.listIterator();
 			while (mit.hasNext()) {
