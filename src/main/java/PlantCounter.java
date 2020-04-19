@@ -528,10 +528,11 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 
 	void populateTxtFields() {
 		final ListIterator<PlantCntrMarkerVector> it = typeVector.listIterator();
-		IJ.log("populateTxtFields");
 		while (it.hasNext()) {
 			final int index = it.nextIndex();
-			IJ.log("type vector index: " + Integer.toString(index));
+			IJ.showMessage("typeVector size: " + Integer.toString(typeVector.size()) + 
+				"\ntype vector index: " + Integer.toString(index) + 
+				"\ntxtFieldVector.size: " + Integer.toString(txtFieldVector.size()));
 			if (txtFieldVector.size() > index) {
 				final PlantCntrMarkerVector markerVector = it.next();
 				final int count = markerVector.size(); // null pointer error here.
@@ -741,7 +742,16 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		else if (command.equals(LOADMARKERS)) {
 			if (ic == null) initializeImage();
 			loadMarkers();
+			
+			IJ.log("6 typeVector size: " + Integer.toString(typeVector.size()) +
+					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
+			
 			validateLayout();
+			
+			
+			IJ.log("7 typeVector size: " + Integer.toString(typeVector.size()) +
+					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
+			
 		}
 		else if (command.equals(EXPORTIMG)) {
 			ic.imageWithMarkers().show();
@@ -750,11 +760,15 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			measure();
 		}
 		if (ic != null) {
-			IJ.log("ic not null"); 
 			ic.repaint();
+			
+			IJ.log("8 typeVector size: " + Integer.toString(typeVector.size()) +
+					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
+			
 		}
-		IJ.log("about to populate test fields");
-		populateTxtFields(); // leads to null pointer exception when called
+		populateTxtFields(); 
+		IJ.showMessage("done populate text fields");
+
 	}
 
 	@Override
@@ -924,10 +938,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			IJ.log("currentMarkerVector size: " + Integer.toString(currentMarkerVector.size()));
 			IJ.log("currentMarkerVector" + currentMarkerVector.toString()); //Null pointer error!
 			ic.setCurrentMarkerVector(currentMarkerVector);
-			IJ.showMessage("about to ic.setCntrNames");
 			ic.setCntrNames(cntrNames);
-			IJ.showMessage("done with ic.setCntrNames");
-
 
 			while (dynRadioVector.size() > typeVector.size()) {
 				if (dynRadioVector.size() > 1) {
@@ -944,7 +955,6 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				}
 			}
 			
-			IJ.showMessage("recat");
 			while (recatRadioVector.size() > typeVector.size()) {
 				if (recatRadioVector.size() > 1) {
 					final JRadioButton rbutton = recatRadioVector.lastElement();
@@ -952,8 +962,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 					recatRadioVector.removeElementAt(recatRadioVector.size() - 1);
 				}
 			}
-
-			IJ.showMessage("remove add button");			
+			
 			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = dynRadioVector.get(i);
 				radioGrp.remove(button);
@@ -961,25 +970,30 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				radioGrp.add(button);
 			}
 			
-			IJ.showMessage("remove add recat button");			
+		
 			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
 				final JRadioButton button = recatRadioVector.get(i);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				recatButtonPanel.add(button);
 			}
 			
+			IJ.log("5 typeVector size: " + Integer.toString(typeVector.size()) +
+					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
 			
-			IJ.showMessage("add buttons");			
+			// The problem is HERE
 			if (cntrNames.getSize() > dynRadioVector.size()) { //add buttons!
 				for (int i = dynRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
 					dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i-1)));
 				}
 			}
 			
-			IJ.showMessage("button set selected");			
+			
+			IJ.log("5,5 typeVector size: " + Integer.toString(typeVector.size()) +
+					"/ntxtFieldVector size: " + Integer.toString(txtFieldVector.size()));
+			
+			
 			final JRadioButton butt = dynRadioVector.get(index);
 			butt.setSelected(true);
-			IJ.showMessage("done with button set selected");			
 
 		}
 		else {
