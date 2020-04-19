@@ -22,6 +22,8 @@
  * #L%
  */
 
+import ij.IJ;
+
 import java.awt.Color;
 
 import org.scijava.options.OptionsPlugin;
@@ -69,7 +71,10 @@ public class PlantCounterOptions extends OptionsPlugin {
 
 	// -- Option accessors --
 
-	public Color getColor(final int id) {
+	public Color getColor(int id) {
+		IJ.log("id: " + Integer.toString(id));
+		id = ((id-1) % 8) + 1;
+		IJ.log("new id:" + Integer.toString(id));
 		switch (id) {
 			case 1:
 				return AWTColors.getColor(color1);
