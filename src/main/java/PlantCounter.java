@@ -898,7 +898,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			IJ.log("get new positions");
 			newPositions = rxml.getNewPositions(cntrNames);
 			IJ.log("get cntrNames");
-			//cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names
+			cntrNames = rxml.readCntrNames(cntrNames, newPositions); //merges current and loaded names
 			IJ.log("get loadedvector");
 			final Vector<PlantCntrMarkerVector> loadedvector = rxml.readMarkerData(newPositions);
 			typeVector = loadedvector;
