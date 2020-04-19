@@ -942,7 +942,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			}
 			
 		
-			for (int i = 0; i < cntrNames.getSize() & i < dynRadioVector.size(); i++) {
+			for (int i = 0; i < cntrNames.getSize() & i < recatRadioVector.size(); i++) {
 				final JRadioButton button = recatRadioVector.get(i);
 				button.setText((i+1) + "_" + cntrNames.get(i));
 				recatButtonPanel.add(button);
@@ -951,6 +951,12 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 			if (cntrNames.getSize() > dynRadioVector.size()) { //add buttons!
 				for (int i = dynRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
 					dynButtonPanel.add(makeDynRadioButton(i, cntrNames.get(i-1)));
+				}
+			}
+			
+			if (cntrNames.getSize() > recatRadioVector.size()) { //add buttons!
+				for (int i = recatRadioVector.size()+1; i <= cntrNames.getSize(); i++) {
+					recatButtonPanel.add(makeRecatRadioButton(i, cntrNames.get(i-1)));
 				}
 			}
 			
