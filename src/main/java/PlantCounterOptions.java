@@ -68,13 +68,17 @@ public class PlantCounterOptions extends OptionsPlugin {
 
 	@Parameter
 	private ColorRGB color8 = Colors.YELLOW;
+	
+	@Parameter
+	private ColorRGB color9 = Colors.PURPLE;
+	
+	@Parameter
+	private ColorRGB color10 = Colors.GRAY;
 
 	// -- Option accessors --
 
 	public Color getColor(int id) {
-		IJ.log("id: " + Integer.toString(id));
-		id = ((id-1) % 8) + 1;
-		IJ.log("new id:" + Integer.toString(id));
+		id = ((id-1) % 10) + 1;
 		switch (id) {
 			case 1:
 				return AWTColors.getColor(color1);
@@ -92,6 +96,10 @@ public class PlantCounterOptions extends OptionsPlugin {
 				return AWTColors.getColor(color7);
 			case 8:
 				return AWTColors.getColor(color8);
+			case 9:
+				return AWTColors.getColor(color9);
+			case 10:
+				return AWTColors.getColor(color10);
 			default:
 				Color c;
 				do {
@@ -107,7 +115,9 @@ public class PlantCounterOptions extends OptionsPlugin {
 					c.equals(Color.orange) || //
 					c.equals(Color.pink) || //
 					c.equals(Color.red) || //
-					c.equals(Color.yellow));
+					c.equals(Color.yellow) || //
+					c.equals(AWTColors.getColor(color9)) || //
+					c.equals(AWTColors.getColor(color10)));
 				return c;
 		}
 	}
