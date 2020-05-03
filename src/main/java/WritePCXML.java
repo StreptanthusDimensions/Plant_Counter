@@ -87,7 +87,6 @@ public class WritePCXML {
 			while (it.hasNext()) {
 				final PlantCntrMarkerVector markerVector = it.next();
 				final int type = markerVector.getType()-1;
-				IJ.log("marker type " + Integer.toString(type));
 				final String cntrName = cntrNames.get(type);
 				out.write("     <Marker_Type>\r\n");
 				out.write("         <Type>" + type + "</Type>\r\n");

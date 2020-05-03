@@ -108,12 +108,28 @@ public class PlantCntrImageCanvas extends ImageCanvas {
 				}
 			}
 			else if (recatmode){
+								
+				if (currentMarkerVector == null) {
+					IJ.error("Select a counter type first!");
+					return;
+				}
+				
+				if (currentMarkerVector.size() == 0) {
+					IJ.error("The selected FROM category has no markers!");
+					return;
+				}
+				
+				if (recatMarkerVector == null) {
+					IJ.error("Select a recategorize type first!");
+					return;
+				}
+				
 				final int x = (int) Math.round(r.getX() + r.getWidth()/2);
 				final int y = (int) Math.round(r.getY() + r.getHeight()/2);
 				final PlantCntrMarker m =
 					currentMarkerVector.getMarkerFromPosition(new Point(x, y), img
 						.getCurrentSlice());
-				
+										
 				if (m.inBoundingBox(x, y)) { //confirm that selected object is correct
 					currentMarkerVector.remove(m);
 					recatMarkerVector.addMarker(m);
