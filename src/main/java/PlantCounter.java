@@ -711,7 +711,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				IJ.error("You need to initialize first");
 				return;
 			}
-			// ic.setDelmode(false); // just in case
+			ic.setDelmode(false); // just in case
+			delCheck.setSelected(false);
+			
+			ic.setRecatmode(false); 
+			recatCheck.setSelected(false);
+			recatGrp.clearSelection();
+			
 			currentMarkerVector = typeVector.get(currentMarkerIndex);
 			ic.setCurrentMarkerVector(currentMarkerVector);
 		}
@@ -722,7 +728,13 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				IJ.error("You need to initialize first");
 				return;
 			}
-			// ic.setDelmode(false); // just in case
+			ic.setDelmode(false); // just in case
+			delCheck.setSelected(false);
+
+			ic.setRecatmode(true);
+			recatCheck.setSelected(true);
+			radioGrp.clearSelection();
+			
 			recatMarkerVector = typeVector.get(recatMarkerIndex);
 			ic.setRecatMarkerVector(recatMarkerVector);
 		}
@@ -775,9 +787,11 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 				ic.setRecatmode(true);
 				ic.setDelmode(false);
 				delCheck.setSelected(false);
+				radioGrp.clearSelection();
 			}
 			else {
 				ic.setRecatmode(false);
+				recatGrp.clearSelection();
 			}
 		}
 		else if (e.getItem().equals(newCheck)) {
