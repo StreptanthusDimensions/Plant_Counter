@@ -119,6 +119,7 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 	private JCheckBox boxesCheck;
 	private JCheckBox showAllCheck;
 	private ButtonGroup radioGrp;
+	private ButtonGroup recatGrp;
 	private JSeparator separator;
 	private JButton addButton;
 	private JButton removeButton;
@@ -181,6 +182,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		getContentPane().setLayout(gb);
 
 		radioGrp = new ButtonGroup();// to group the radiobuttons for categories
+		
+		recatGrp = new ButtonGroup();// to group the radiobuttons for recategorizing.
 		
 		dynGrid = new GridLayout(cntrNames.getSize(), 1);
 		dynGrid.setVgap(2);
@@ -558,7 +561,8 @@ public class PlantCounter extends JFrame implements ActionListener, ItemListener
 		jrButton.setActionCommand(RECAT_COMMAND_PREFIX + id);
 		jrButton.addActionListener(this);
 		recatRadioVector.add(jrButton); 
-		//recatGrp.add(jrButton); //check this
+		recatGrp.add(jrButton); //check this
+		//no dynTxtPanel; that adds the counters
 		return jrButton;
 	}
 
